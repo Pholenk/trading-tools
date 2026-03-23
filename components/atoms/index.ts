@@ -19,3 +19,5 @@ export { ThemeProvider } from "./ThemeProvider";
 export { MenuIndicator } from "./MenuIndicator";
 
 export { BreadcrumbItem } from "./BreadcrumbItem";
+
+export { Divider } from "./Divider";
