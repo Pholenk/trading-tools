@@ -3,3 +3,5 @@ export type { ThemeToggleProps } from "./ThemeToggle";
 
 export { NavLink } from "./NavLink";
 export type { NavLinkProps } from "./NavLink";
+
+export { MenuItem } from "./MenuItem";
