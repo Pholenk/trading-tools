@@ -14,3 +14,5 @@ export { ButtonIcon } from "./ButtonIcon";
 export type { ButtonIconProps } from "./ButtonIcon";
 
 export { Breadcrumb } from "./Breadcrumb";
+
+export { InputText } from "./InputText";
