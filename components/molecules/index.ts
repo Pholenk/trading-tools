@@ -12,3 +12,5 @@ export type { MenuProps, MenuTab } from "./Menu";
 
 export { ButtonIcon } from "./ButtonIcon";
 export type { ButtonIconProps } from "./ButtonIcon";
+
+export { Breadcrumb } from "./Breadcrumb";
