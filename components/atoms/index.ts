@@ -15,3 +15,5 @@ export type { BadgeProps } from "./Badge";
 
 export { ReduxProvider } from "./ReduxProvider";
 export { ThemeProvider } from "./ThemeProvider";
+
+export { MenuIndicator } from "./MenuIndicator";
