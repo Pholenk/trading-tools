@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { MenuItem } from "@/components/molecules/MenuItem";
-import { ThemeToggle } from "@/components/molecules/ThemeToggle";
+import { ButtonIcon } from "@/components/molecules/ButtonIcon";
 
 export interface MenuTab {
   /** Unique key and display label for this tab */
@@ -19,16 +19,18 @@ export interface MenuProps {
   activeTab?: string;
   /** Fired when the user selects a different tab */
   onTabChange?: (label: string) => void;
-  /** Whether to show the ThemeToggle button on the trailing edge */
-  showThemeToggle?: boolean;
+  /** Whether to show the ButtonIcon at the trailing edge */
+  showButtonIcon?: boolean;
   className?: string;
 }
 
 /**
  * Menu — Molecule
  *
- * A horizontal tab bar that renders a row of MenuItem molecules plus an
- * optional ThemeToggle button on the trailing edge.
+ * Structure: {loop of MenuItem} → {ButtonIcon}
+ *
+ * A horizontal tab bar that renders a row of MenuItem molecules followed
+ * by a ButtonIcon theme toggle at the very end.
  *
  * Supports both uncontrolled (defaultActive) and controlled (activeTab +
  * onTabChange) usage patterns.
@@ -48,7 +50,7 @@ export function Menu({
   defaultActive,
   activeTab: controlledActive,
   onTabChange,
-  showThemeToggle = true,
+  showButtonIcon = true,
   className,
 }: MenuProps) {
   // Uncontrolled internal state — ignored when controlledActive is provided
@@ -69,13 +71,12 @@ export function Menu({
       role="tablist"
       aria-label="Menu"
       className={cn(
-        // Layout — matches design specs
         "inline-flex flex-row items-center justify-start",
         "pl-2 py-0 gap-2",
         className
       )}
     >
-      {/* Tab items */}
+      {/* Loop of MenuItems */}
       {tabs.map((tab) => (
         <MenuItem
           key={tab.label}
@@ -85,10 +86,8 @@ export function Menu({
         />
       ))}
 
-      {/* Trailing theme toggle */}
-      {showThemeToggle && (
-        <ThemeToggle variant="icon" className="ml-auto" />
-      )}
+      {/* ButtonIcon — always last */}
+      {showButtonIcon && <ButtonIcon />}
     </nav>
   );
 }

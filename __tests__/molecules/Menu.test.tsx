@@ -1,7 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Menu } from "@/components/molecules/Menu";
 
-// Mock next-themes for ThemeToggle
 const mockSetTheme = jest.fn();
 jest.mock("next-themes", () => ({
   useTheme: () => ({
@@ -11,7 +10,6 @@ jest.mock("next-themes", () => ({
   }),
 }));
 
-// Force ThemeToggle to mount immediately
 jest.mock("react", () => {
   const real = jest.requireActual("react");
   return {
@@ -48,24 +46,20 @@ describe("Menu", () => {
   it("activates the first tab by default (uncontrolled)", () => {
     render(<Menu tabs={TABS} />);
     expect(screen.getByRole("tab", { name: "Rotation" })).toHaveAttribute(
-      "aria-selected",
-      "true"
+      "aria-selected", "true"
     );
     expect(screen.getByRole("tab", { name: "Wave" })).toHaveAttribute(
-      "aria-selected",
-      "false"
+      "aria-selected", "false"
     );
   });
 
   it("activates defaultActive tab in uncontrolled mode", () => {
     render(<Menu tabs={TABS} defaultActive="Wave" />);
     expect(screen.getByRole("tab", { name: "Wave" })).toHaveAttribute(
-      "aria-selected",
-      "true"
+      "aria-selected", "true"
     );
     expect(screen.getByRole("tab", { name: "Rotation" })).toHaveAttribute(
-      "aria-selected",
-      "false"
+      "aria-selected", "false"
     );
   });
 
@@ -73,12 +67,10 @@ describe("Menu", () => {
     render(<Menu tabs={TABS} />);
     fireEvent.click(screen.getByRole("tab", { name: "Calculator" }));
     expect(screen.getByRole("tab", { name: "Calculator" })).toHaveAttribute(
-      "aria-selected",
-      "true"
+      "aria-selected", "true"
     );
     expect(screen.getByRole("tab", { name: "Rotation" })).toHaveAttribute(
-      "aria-selected",
-      "false"
+      "aria-selected", "false"
     );
   });
 
@@ -92,23 +84,30 @@ describe("Menu", () => {
   it("respects controlled activeTab prop", () => {
     render(<Menu tabs={TABS} activeTab="Calculator" onTabChange={jest.fn()} />);
     expect(screen.getByRole("tab", { name: "Calculator" })).toHaveAttribute(
-      "aria-selected",
-      "true"
+      "aria-selected", "true"
     );
   });
 
-  it("renders the ThemeToggle when showThemeToggle=true (default)", () => {
+  it("renders ButtonIcon at the end when showButtonIcon=true (default)", () => {
     render(<Menu tabs={TABS} />);
     expect(
       screen.getByRole("button", { name: /switch to dark theme/i })
     ).toBeInTheDocument();
   });
 
-  it("hides the ThemeToggle when showThemeToggle=false", () => {
-    render(<Menu tabs={TABS} showThemeToggle={false} />);
+  it("hides ButtonIcon when showButtonIcon=false", () => {
+    render(<Menu tabs={TABS} showButtonIcon={false} />);
     expect(
       screen.queryByRole("button", { name: /switch to dark theme/i })
     ).not.toBeInTheDocument();
+  });
+
+  it("ButtonIcon is rendered after all tab items", () => {
+    render(<Menu tabs={TABS} />);
+    const allButtons = screen.getAllByRole("button");
+    // Only ButtonIcon is a button; tabs are role="tab" not "button"
+    expect(allButtons).toHaveLength(1);
+    expect(allButtons[0]).toHaveAttribute("aria-label", expect.stringMatching(/switch to/i));
   });
 
   it("applies custom className to the nav element", () => {
