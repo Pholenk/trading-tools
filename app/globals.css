@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 204 57% 34%;
+    --primary-foreground: 0 0% 100%;
+    --primary-container: 204 100% 90%;
+    --on-primary-container: 204 100% 9%;
+    --secondary: 193 79% 28%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-container: 193 100% 87%;
+    --on-secondary-container: 193 100% 8%;
+    --tertiary: 204 57% 34%;
+    --tertiary-foreground: 0 0% 100%;
+    --tertiary-container: 204 100% 90%;
+    --on-tertiary-container: 204 100% 9%;
+    --error: 1 32% 43%;
+    --error-foreground: 0 0% 100%;
+    --error-container: 2 100% 93%;
+    --on-error-container: 357 78% 13%;
+    --background: 225 100% 98%;
+    --foreground: 214 14% 11%;
+    --surface: 225 100% 98%;
+    --on-surface: 214 14% 11%;
+    --surface-variant: 210 16% 89%;
+    --on-surface-variant: 210 9% 27%;
+    --surface-dim: 210 10% 85%;
+    --surface-bright: 225 100% 98%;
+    --surface-container-lowest: 0 0% 100%;
+    --surface-container-low: 216 21% 96%;
+    --surface-container: 213 17% 94%;
+    --surface-container-high: 213 14% 92%;
+    --surface-container-highest: 210 12% 90%;
+    --outline: 208 5% 47%;
+    --outline-variant: 210 12% 78%;
+    --scrim: 0 0% 0%;
+    --inverse-surface: 210 9% 19%;
+    --inverse-on-surface: 213 17% 94%;
+    --inverse-primary: 204 87% 78%;
+    --card: 0 0% 100%;
+    --card-foreground: 214 14% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 214 14% 11%;
+    --muted: 213 17% 94%;
+    --muted-foreground: 210 9% 40%;
+    --accent: 204 100% 90%;
+    --accent-foreground: 204 100% 9%;
+    --destructive: 1 32% 43%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 12% 78%;
+    --input: 210 12% 78%;
+    --ring: 204 57% 34%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --primary: 204 87% 78%;
+    --primary-foreground: 204 100% 15%;
+    --primary-container: 204 100% 22%;
+    --on-primary-container: 204 100% 90%;
+    --secondary: 195 73% 74%;
+    --secondary-foreground: 193 100% 14%;
+    --secondary-container: 193 100% 20%;
+    --on-secondary-container: 193 100% 87%;
+    --tertiary: 204 87% 78%;
+    --tertiary-foreground: 204 100% 15%;
+    --tertiary-container: 204 100% 22%;
+    --on-tertiary-container: 204 100% 90%;
+    --error: 1 100% 85%;
+    --error-foreground: 357 51% 23%;
+    --error-container: 0 38% 33%;
+    --on-error-container: 2 100% 93%;
+    --background: 210 19% 8%;
+    --foreground: 210 12% 90%;
+    --surface: 210 19% 8%;
+    --on-surface: 210 12% 90%;
+    --surface-variant: 210 9% 27%;
+    --on-surface-variant: 210 12% 78%;
+    --surface-dim: 210 19% 8%;
+    --surface-bright: 209 8% 22%;
+    --surface-container-lowest: 210 22% 6%;
+    --surface-container-low: 214 14% 11%;
+    --surface-container: 210 13% 12%;
+    --surface-container-high: 210 10% 16%;
+    --surface-container-highest: 210 8% 21%;
+    --outline: 208 6% 57%;
+    --outline-variant: 210 9% 27%;
+    --scrim: 0 0% 0%;
+    --inverse-surface: 210 12% 90%;
+    --inverse-on-surface: 210 9% 19%;
+    --inverse-primary: 204 57% 34%;
+    --card: 210 13% 12%;
+    --card-foreground: 210 12% 90%;
+    --popover: 210 13% 12%;
+    --popover-foreground: 210 12% 90%;
+    --muted: 210 10% 16%;
+    --muted-foreground: 210 8% 60%;
+    --accent: 204 100% 22%;
+    --accent-foreground: 204 100% 90%;
+    --destructive: 1 100% 85%;
+    --destructive-foreground: 357 51% 23%;
+    --border: 210 9% 27%;
+    --input: 210 9% 27%;
+    --ring: 204 87% 78%;
+  }
+}
+
+@layer base {
+  * { border-color: hsl(var(--border)); }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "Nunito Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-optical-sizing: auto;
+  }
+
+  .display-large  { font-size: 57px; line-height: 64px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .display-medium { font-size: 45px; line-height: 52px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .display-small  { font-size: 36px; line-height: 44px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .headline-large  { font-size: 32px; line-height: 40px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .headline-medium { font-size: 28px; line-height: 36px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .headline-small  { font-size: 24px; line-height: 32px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .title-large  { font-size: 22px; line-height: 28px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .title-medium { font-size: 16px; line-height: 24px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .title-small  { font-size: 14px; line-height: 20px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .body-large  { font-size: 16px; line-height: 24px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .body-medium { font-size: 14px; line-height: 20px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .body-small  { font-size: 12px; line-height: 16px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .label-large  { font-size: 14px; line-height: 20px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .label-medium { font-size: 12px; line-height: 16px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .label-small  { font-size: 11px; line-height: 16px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+}

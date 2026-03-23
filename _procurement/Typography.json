@@ -1,0 +1,107 @@
+[
+    {
+        "Name": "MaterialTheme/Display/Large",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 57,
+        "Line Height": "64px"
+    },
+    {
+        "Name": "MaterialTheme/Display/Medium",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 45,
+        "Line Height": "52px"
+    },
+    {
+        "Name": "MaterialTheme/Display/Small",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 36,
+        "Line Height": "44px"
+    },
+    {
+        "Name": "MaterialTheme/Headline/Large",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 32,
+        "Line Height": "40px"
+    },
+    {
+        "Name": "MaterialTheme/Headline/Medium",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 28,
+        "Line Height": "36px"
+    },
+    {
+        "Name": "MaterialTheme/Headline/Small",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 24,
+        "Line Height": "32px"
+    },
+    {
+        "Name": "MaterialTheme/Body/Large",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 16,
+        "Line Height": "24px"
+    },
+    {
+        "Name": "MaterialTheme/Body/Medium",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 14,
+        "Line Height": "20px"
+    },
+    {
+        "Name": "MaterialTheme/Body/Small",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 12,
+        "Line Height": "16px"
+    },
+    {
+        "Name": "MaterialTheme/Label/Large",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Medium",
+        "Font Size": 14,
+        "Line Height": "20px"
+    },
+    {
+        "Name": "MaterialTheme/Label/Medium",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Medium",
+        "Font Size": 12,
+        "Line Height": "16px"
+    },
+    {
+        "Name": "MaterialTheme/Label/Small",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Medium",
+        "Font Size": 11,
+        "Line Height": "16px"
+    },
+    {
+        "Name": "MaterialTheme/Title/Large",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Regular",
+        "Font Size": 22,
+        "Line Height": "28px"
+    },
+    {
+        "Name": "MaterialTheme/Title/Medium",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Medium",
+        "Font Size": 16,
+        "Line Height": "24px"
+    },
+    {
+        "Name": "MaterialTheme/Title/Small",
+        "Font Family": "Nunito Sans",
+        "Font Face": "Medium",
+        "Font Size": 14,
+        "Line Height": "20px"
+    }
+]

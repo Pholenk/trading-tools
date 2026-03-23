@@ -1,0 +1,24 @@
+Save this as project context! This is for a frontend web project developed using NextJS. This website MUST be SEO-friendly and run smoothly on a GitHub page.
+
+Create project using NextJS. Develop every component using atomic design principles and ensure the components is reusable.
+
+Use TypeScript.
+Use Redux for state management.
+Use ShadCN UI for styling.
+Use React Testing Library to create unit and integration test script.
+To make it easy to test, use "Template" from atomic design principles as UI page and "Page" from atomic design principles to connect the High Order Component with the template.
+So, all function or logic goes to "Page" and page UI goes to "Template".
+
+The website will have 2 main display theme; light and dark. User will be able to change theme on the fly.
+Make sure every component and page can adapt this perfectly.
+
+I'll give you instructions for creating some things later. If I ask you to create a component, just CREATE the component according to the instructions without creating a page.
+If I ask you to create a page and you find a component missing, let me know first, and I'll decide whether you should create that component and how it should be designed.
+
+When I give screenshot of design, this is how to understand it:
+1. The design is only visible within the white background area; anything outside that area is annotated.
+2. The red arrows crossing the screen indicate instructions for an object.
+3. Instructions for an object will include component-level information, color conventions, style conventions, and/or margin/padding information for the designated object.
+4. Ensure the resulting display does not deviate from the given design.
+
+I have attached files containing lists of color conventions as well as typographic conventions.
