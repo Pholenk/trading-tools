@@ -22,11 +22,11 @@ const typographyVariants = cva("", {
       "label-small": "label-small",
     },
     textColor: {
-      default: "text-foreground",
+      default: "text-on-surface",
       primary: "text-primary",
       secondary: "text-secondary",
-      muted: "text-muted-foreground",
-      error: "text-destructive",
+      muted: "text-on-surface-variant",
+      error: "text-error",
     },
   },
   defaultVariants: {
