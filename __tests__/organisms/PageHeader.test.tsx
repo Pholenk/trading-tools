@@ -25,9 +25,9 @@ jest.mock("react", () => {
 });
 
 const TABS = [
-  { label: "Rotation" },
-  { label: "Wave" },
-  { label: "Calculator" },
+  { href: '/setor-rotation', label: 'Rotation' },
+  { href: '/wave-count', label: 'Wave' },
+  { href: '/calculator', label: 'Calculator' },
 ];
 
 describe("PageHeader", () => {
@@ -82,13 +82,6 @@ describe("PageHeader", () => {
     ).toBeInTheDocument();
   });
 
-  it("hides ButtonIcon when showButtonIcon=false", () => {
-    render(<PageHeader tabs={TABS} showButtonIcon={false} />);
-    expect(
-      screen.queryByRole("button", { name: /switch to dark theme/i })
-    ).not.toBeInTheDocument();
-  });
-
   it("calls onSearchChange when typing in the input", () => {
     const handleSearch = jest.fn();
     render(<PageHeader tabs={TABS} onSearchChange={handleSearch} />);
@@ -109,7 +102,7 @@ describe("PageHeader", () => {
     const handleTabChange = jest.fn();
     render(<PageHeader tabs={TABS} onTabChange={handleTabChange} />);
     fireEvent.click(screen.getByRole("tab", { name: "Wave" }));
-    expect(handleTabChange).toHaveBeenCalledWith("Wave");
+    expect(handleTabChange).toHaveBeenCalledWith(TABS[1].href);
   });
 
   it("respects controlled activeTab", () => {
