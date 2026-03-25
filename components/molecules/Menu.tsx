@@ -1,27 +1,51 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { cn } from "@/lib/utils";
-import { MenuItem } from "@/components/molecules/MenuItem";
-import { ButtonIcon } from "@/components/molecules/ButtonIcon";
+import { cn } from '@/lib/utils'
+import { MenuItem } from '@/components/molecules/MenuItem'
+import { ButtonIcon } from '@/components/molecules/ButtonIcon'
 
 export interface MenuTab {
   /** Unique key and display label for this tab */
-  label: string;
+  label: string
+  href: string
 }
 
 export interface MenuProps {
   /** The list of tabs to render */
-  tabs: MenuTab[];
+  tabs: MenuTab[]
   /** The label of the initially active tab (defaults to the first tab) */
-  defaultActive?: string;
+  defaultActive?: string
   /** Controlled active tab — use alongside onTabChange for controlled mode */
-  activeTab?: string;
+  activeTab?: string
   /** Fired when the user selects a different tab */
-  onTabChange?: (label: string) => void;
-  /** Whether to show the ButtonIcon at the trailing edge */
-  showButtonIcon?: boolean;
-  className?: string;
+  onTabChange?: (href: string) => void
+  className?: string
+}
+
+const RenderMenuItem = (props: {
+  tabs: MenuTab[]
+  onMenuClick: MenuProps['onTabChange']
+  activeMenu: MenuTab['label']
+}) => {
+  const realTabs = [...props.tabs, { href: '#', label: 'button' }]
+
+  return realTabs.map((tab) => {
+    return tab.label === 'button' ? (
+      <ButtonIcon key='theme-switcher' className='rounded-full' />
+    ) : (
+      <MenuItem
+        key={tab.label}
+        label={tab.label}
+        active={tab.label === props.activeMenu}
+        onClick={() => {
+          if (typeof props.onMenuClick === 'undefined') {
+            return
+          }
+          props.onMenuClick(tab.href)
+        }}
+      />
+    )
+  })
 }
 
 /**
@@ -45,49 +69,29 @@ export interface MenuProps {
  *  - padding-vertical: 0
  *  - gap: 8px between children (gap-2)
  */
-export function Menu({
-  tabs,
-  defaultActive,
-  activeTab: controlledActive,
-  onTabChange,
-  showButtonIcon = true,
-  className,
-}: MenuProps) {
-  // Uncontrolled internal state — ignored when controlledActive is provided
-  const [internalActive, setInternalActive] = useState<string>(
-    defaultActive ?? tabs[0]?.label ?? ""
-  );
-
-  const isControlled = controlledActive !== undefined;
-  const activeLabel = isControlled ? controlledActive : internalActive;
-
-  function handleTabClick(label: string) {
-    if (!isControlled) setInternalActive(label);
-    onTabChange?.(label);
+export function Menu({ tabs, defaultActive, activeTab, onTabChange, className }: MenuProps) {
+  function handleMenuClick(href: string) {
+    if (typeof onTabChange === 'undefined') {
+      return
+    }
+    onTabChange?.(href)
   }
 
   return (
     <nav
-      role="tablist"
-      aria-label="Menu"
+      role='tablist'
+      aria-label='Menu'
       className={cn(
-        "inline-flex flex-row items-center justify-start",
-        "pl-2 py-0 gap-2",
-        className
+        'inline-flex flex-row items-center justify-start',
+        'pl-2 py-0 gap-2',
+        className,
       )}
     >
-      {/* Loop of MenuItems */}
-      {tabs.map((tab) => (
-        <MenuItem
-          key={tab.label}
-          label={tab.label}
-          active={tab.label === activeLabel}
-          onClick={handleTabClick}
-        />
-      ))}
-
-      {/* ButtonIcon — always last */}
-      {showButtonIcon && <ButtonIcon />}
+      <RenderMenuItem
+        tabs={tabs}
+        onMenuClick={handleMenuClick}
+        activeMenu={activeTab || defaultActive || ''}
+      />
     </nav>
-  );
+  )
 }
