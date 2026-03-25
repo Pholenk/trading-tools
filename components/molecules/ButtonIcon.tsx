@@ -1,12 +1,13 @@
-"use client";
+'use client'
 
-import { useTheme } from "next-themes";
-import { Sun, Moon } from "lucide-react";
-import { Button } from "@/components/atoms/Button";
-import { Icon } from "@/components/atoms/Icon";
+import { useState, useEffect } from 'react'
+import { useTheme } from 'next-themes'
+import { Sun, Moon } from 'lucide-react'
+import { Button } from '@/components/atoms/Button'
+import { Icon } from '@/components/atoms/Icon'
 
 export interface ButtonIconProps {
-  className?: string;
+  className?: string
 }
 
 /**
@@ -25,23 +26,34 @@ export interface ButtonIconProps {
  *  - icon: Sun (dark mode) | Moon (light mode) → Icon atom
  */
 export function ButtonIcon({ className }: ButtonIconProps) {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
-  const isDark = resolvedTheme === "dark";
+  useEffect(() => {
+    const onMounted = () => {
+      setMounted(true)
+    }
+    onMounted()
 
-  return (
+    setTheme(resolvedTheme || 'system')
+  }, [resolvedTheme, setTheme])
+
+  const isDark = resolvedTheme === 'dark'
+
+  return mounted ? (
     <Button
-      variant="tertiary"
-      size="icon-lg"
-      aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      variant='tertiary'
+      size='icon-lg'
+      aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
       className={className}
     >
       <Icon
-        icon={isDark ? Sun : Moon}
+        icon={isDark ? Moon : Sun}
         size={24}
-        aria-hidden="true"
+        aria-hidden='true'
+        color='var(--on-tertiary-container)'
       />
     </Button>
-  );
+  ) : null
 }

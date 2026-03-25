@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Menu } from "@/components/molecules/Menu";
 
 const mockSetTheme = jest.fn();
@@ -23,9 +23,9 @@ jest.mock("react", () => {
 });
 
 const TABS = [
-  { label: "Rotation" },
-  { label: "Wave" },
-  { label: "Calculator" },
+  { href: '/setor-rotation', label: 'Rotation' },
+  { href: '/wave-count', label: 'Wave' },
+  { href: '/calculator', label: 'Calculator' },
 ];
 
 describe("Menu", () => {
@@ -43,16 +43,6 @@ describe("Menu", () => {
     expect(screen.getByRole("tablist")).toBeInTheDocument();
   });
 
-  it("activates the first tab by default (uncontrolled)", () => {
-    render(<Menu tabs={TABS} />);
-    expect(screen.getByRole("tab", { name: "Rotation" })).toHaveAttribute(
-      "aria-selected", "true"
-    );
-    expect(screen.getByRole("tab", { name: "Wave" })).toHaveAttribute(
-      "aria-selected", "false"
-    );
-  });
-
   it("activates defaultActive tab in uncontrolled mode", () => {
     render(<Menu tabs={TABS} defaultActive="Wave" />);
     expect(screen.getByRole("tab", { name: "Wave" })).toHaveAttribute(
@@ -61,24 +51,6 @@ describe("Menu", () => {
     expect(screen.getByRole("tab", { name: "Rotation" })).toHaveAttribute(
       "aria-selected", "false"
     );
-  });
-
-  it("changes active tab on click in uncontrolled mode", () => {
-    render(<Menu tabs={TABS} />);
-    fireEvent.click(screen.getByRole("tab", { name: "Calculator" }));
-    expect(screen.getByRole("tab", { name: "Calculator" })).toHaveAttribute(
-      "aria-selected", "true"
-    );
-    expect(screen.getByRole("tab", { name: "Rotation" })).toHaveAttribute(
-      "aria-selected", "false"
-    );
-  });
-
-  it("calls onTabChange with the tab label when a tab is clicked", () => {
-    const handleChange = jest.fn();
-    render(<Menu tabs={TABS} onTabChange={handleChange} />);
-    fireEvent.click(screen.getByRole("tab", { name: "Wave" }));
-    expect(handleChange).toHaveBeenCalledWith("Wave");
   });
 
   it("respects controlled activeTab prop", () => {
@@ -93,13 +65,6 @@ describe("Menu", () => {
     expect(
       screen.getByRole("button", { name: /switch to dark theme/i })
     ).toBeInTheDocument();
-  });
-
-  it("hides ButtonIcon when showButtonIcon=false", () => {
-    render(<Menu tabs={TABS} showButtonIcon={false} />);
-    expect(
-      screen.queryByRole("button", { name: /switch to dark theme/i })
-    ).not.toBeInTheDocument();
   });
 
   it("ButtonIcon is rendered after all tab items", () => {

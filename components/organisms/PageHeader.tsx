@@ -50,7 +50,6 @@ export function PageHeader({
   searchPlaceholder,
   searchValue,
   onSearchChange,
-  showButtonIcon = true,
   className,
 }: PageHeaderProps) {
   return (
@@ -84,7 +83,6 @@ export function PageHeader({
           activeTab={activeTab}
           defaultActive={defaultActiveTab}
           onTabChange={onTabChange}
-          showButtonIcon={showButtonIcon}
         />
       </div>
 
