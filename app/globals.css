@@ -1,138 +1,168 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap");
+@import "tailwindcss";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. RAW HEX TOKEN VALUES — from material-theme.json (seed: #549FD1)
+   Light theme = :root  |  Dark theme = .dark
+───────────────────────────────────────────────────────────────────────────── */
 @layer base {
   :root {
-    --primary: 204 57% 34%;
-    --primary-foreground: 0 0% 100%;
-    --primary-container: 204 100% 90%;
-    --on-primary-container: 204 100% 9%;
-    --secondary: 193 79% 28%;
-    --secondary-foreground: 0 0% 100%;
-    --secondary-container: 193 100% 87%;
-    --on-secondary-container: 193 100% 8%;
-    --tertiary: 204 57% 34%;
-    --tertiary-foreground: 0 0% 100%;
-    --tertiary-container: 204 100% 90%;
-    --on-tertiary-container: 204 100% 9%;
-    --error: 1 32% 43%;
-    --error-foreground: 0 0% 100%;
-    --error-container: 2 100% 93%;
-    --on-error-container: 357 78% 13%;
-    --background: 225 100% 98%;
-    --foreground: 214 14% 11%;
-    --surface: 225 100% 98%;
-    --on-surface: 214 14% 11%;
-    --surface-variant: 210 16% 89%;
-    --on-surface-variant: 210 9% 27%;
-    --surface-dim: 210 10% 85%;
-    --surface-bright: 225 100% 98%;
-    --surface-container-lowest: 0 0% 100%;
-    --surface-container-low: 216 21% 96%;
-    --surface-container: 213 17% 94%;
-    --surface-container-high: 213 14% 92%;
-    --surface-container-highest: 210 12% 90%;
-    --outline: 208 5% 47%;
-    --outline-variant: 210 12% 78%;
-    --scrim: 0 0% 0%;
-    --inverse-surface: 210 9% 19%;
-    --inverse-on-surface: 213 17% 94%;
-    --inverse-primary: 204 87% 78%;
-    --card: 0 0% 100%;
-    --card-foreground: 214 14% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 214 14% 11%;
-    --muted: 213 17% 94%;
-    --muted-foreground: 210 9% 40%;
-    --accent: 204 100% 90%;
-    --accent-foreground: 204 100% 9%;
-    --destructive: 1 32% 43%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 210 12% 78%;
-    --input: 210 12% 78%;
-    --ring: 204 57% 34%;
-    --radius: 0.75rem;
+    --primary:                    #006492;
+    --on-primary:                 #FFFFFF;
+    --primary-container:          #549FD1;
+    --on-primary-container:       #00344E;
+    --secondary:                  #005C75;
+    --on-secondary:               #FFFFFF;
+    --secondary-container:        #2B758F;
+    --on-secondary-container:     #DDF3FF;
+    --tertiary:                   #3F586B;
+    --on-tertiary:                #FFFFFF;
+    --tertiary-container:         #577084;
+    --on-tertiary-container:      #E5F2FF;
+    --error:                      #9C3C3E;
+    --on-error:                   #FFFFFF;
+    --error-container:            #BB5455;
+    --on-error-container:         #FFFBFF;
+    --background:                 #F7F9FE;
+    --on-background:              #181C1F;
+    --surface:                    #F7F9FE;
+    --on-surface:                 #181C1F;
+    --surface-variant:            #DCE3EC;
+    --on-surface-variant:         #40484F;
+    --outline:                    #707880;
+    --outline-variant:            #C0C7D0;
+    --shadow:                     #000000;
+    --scrim:                      #000000;
+    --inverse-surface:            #2D3134;
+    --inverse-on-surface:         #EFF1F5;
+    --inverse-primary:            #8BCEFF;
+    --surface-dim:                #D8DADE;
+    --surface-bright:             #F7F9FE;
+    --surface-container-lowest:   #FFFFFF;
+    --surface-container-low:      #F2F4F8;
+    --surface-container:          #ECEEF2;
+    --surface-container-high:     #E6E8EC;
+    --surface-container-highest:  #E0E2E7;
+    --radius:                     0.75rem;
   }
 
   .dark {
-    --primary: 204 87% 78%;
-    --primary-foreground: 204 100% 15%;
-    --primary-container: 204 100% 22%;
-    --on-primary-container: 204 100% 90%;
-    --secondary: 195 73% 74%;
-    --secondary-foreground: 193 100% 14%;
-    --secondary-container: 193 100% 20%;
-    --on-secondary-container: 193 100% 87%;
-    --tertiary: 204 87% 78%;
-    --tertiary-foreground: 204 100% 15%;
-    --tertiary-container: 204 100% 22%;
-    --on-tertiary-container: 204 100% 90%;
-    --error: 1 100% 85%;
-    --error-foreground: 357 51% 23%;
-    --error-container: 0 38% 33%;
-    --on-error-container: 2 100% 93%;
-    --background: 210 19% 8%;
-    --foreground: 210 12% 90%;
-    --surface: 210 19% 8%;
-    --on-surface: 210 12% 90%;
-    --surface-variant: 210 9% 27%;
-    --on-surface-variant: 210 12% 78%;
-    --surface-dim: 210 19% 8%;
-    --surface-bright: 209 8% 22%;
-    --surface-container-lowest: 210 22% 6%;
-    --surface-container-low: 214 14% 11%;
-    --surface-container: 210 13% 12%;
-    --surface-container-high: 210 10% 16%;
-    --surface-container-highest: 210 8% 21%;
-    --outline: 208 6% 57%;
-    --outline-variant: 210 9% 27%;
-    --scrim: 0 0% 0%;
-    --inverse-surface: 210 12% 90%;
-    --inverse-on-surface: 210 9% 19%;
-    --inverse-primary: 204 57% 34%;
-    --card: 210 13% 12%;
-    --card-foreground: 210 12% 90%;
-    --popover: 210 13% 12%;
-    --popover-foreground: 210 12% 90%;
-    --muted: 210 10% 16%;
-    --muted-foreground: 210 8% 60%;
-    --accent: 204 100% 22%;
-    --accent-foreground: 204 100% 90%;
-    --destructive: 1 100% 85%;
-    --destructive-foreground: 357 51% 23%;
-    --border: 210 9% 27%;
-    --input: 210 9% 27%;
-    --ring: 204 87% 78%;
+    --primary:                    #8BCEFF;
+    --on-primary:                 #00344E;
+    --primary-container:          #549FD1;
+    --on-primary-container:       #00344E;
+    --secondary:                  #8CD0ED;
+    --on-secondary:               #003545;
+    --secondary-container:        #2B758F;
+    --on-secondary-container:     #DDF3FF;
+    --tertiary:                   #B0CAE0;
+    --on-tertiary:                #193345;
+    --tertiary-container:         #577084;
+    --on-tertiary-container:      #E5F2FF;
+    --error:                      #FFB3B1;
+    --on-error:                   #611017;
+    --error-container:            #DF6F6F;
+    --on-error-container:         #420007;
+    --background:                 #101417;
+    --on-background:              #E0E2E7;
+    --surface:                    #101417;
+    --on-surface:                 #E0E2E7;
+    --surface-variant:            #40484F;
+    --on-surface-variant:         #C0C7D0;
+    --outline:                    #8A929A;
+    --outline-variant:            #40484F;
+    --shadow:                     #000000;
+    --scrim:                      #000000;
+    --inverse-surface:            #E0E2E7;
+    --inverse-on-surface:         #2D3134;
+    --inverse-primary:            #006492;
+    --surface-dim:                #101417;
+    --surface-bright:             #363A3D;
+    --surface-container-lowest:   #0B0F12;
+    --surface-container-low:      #181C1F;
+    --surface-container:          #1D2023;
+    --surface-container-high:     #272A2E;
+    --surface-container-highest:  #323539;
   }
 }
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. TAILWIND v4 THEME REGISTRATION
+   @theme inline generates bg-*, text-*, border-* etc. for every token.
+   Values reference the CSS variables so light/dark switches at runtime.
+───────────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-primary:                   var(--primary);
+  --color-on-primary:                var(--on-primary);
+  --color-primary-container:         var(--primary-container);
+  --color-on-primary-container:      var(--on-primary-container);
+  --color-secondary:                 var(--secondary);
+  --color-on-secondary:              var(--on-secondary);
+  --color-secondary-container:       var(--secondary-container);
+  --color-on-secondary-container:    var(--on-secondary-container);
+  --color-tertiary:                  var(--tertiary);
+  --color-on-tertiary:               var(--on-tertiary);
+  --color-tertiary-container:        var(--tertiary-container);
+  --color-on-tertiary-container:     var(--on-tertiary-container);
+  --color-error:                     var(--error);
+  --color-on-error:                  var(--on-error);
+  --color-error-container:           var(--error-container);
+  --color-on-error-container:        var(--on-error-container);
+  --color-background:                var(--background);
+  --color-on-background:             var(--on-background);
+  --color-surface:                   var(--surface);
+  --color-on-surface:                var(--on-surface);
+  --color-surface-variant:           var(--surface-variant);
+  --color-on-surface-variant:        var(--on-surface-variant);
+  --color-outline:                   var(--outline);
+  --color-outline-variant:           var(--outline-variant);
+  --color-shadow:                    var(--shadow);
+  --color-scrim:                     var(--scrim);
+  --color-inverse-surface:           var(--inverse-surface);
+  --color-inverse-on-surface:        var(--inverse-on-surface);
+  --color-inverse-primary:           var(--inverse-primary);
+  --color-surface-dim:               var(--surface-dim);
+  --color-surface-bright:            var(--surface-bright);
+  --color-surface-container-lowest:  var(--surface-container-lowest);
+  --color-surface-container-low:     var(--surface-container-low);
+  --color-surface-container:         var(--surface-container);
+  --color-surface-container-high:    var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. BASE STYLES
+───────────────────────────────────────────────────────────────────────────── */
 @layer base {
-  * { border-color: hsl(var(--border)); }
+  * { border-color: var(--outline-variant); }
+
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
+    background-color: var(--background);
+    color: var(--on-surface);
     font-family: "Nunito Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-optical-sizing: auto;
   }
 
-  .display-large  { font-size: 57px; line-height: 64px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .display-medium { font-size: 45px; line-height: 52px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .display-small  { font-size: 36px; line-height: 44px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  /* ── Material You Typography scale ──────────────────────────────────────── */
+  .display-large   { font-size: 57px; line-height: 64px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .display-medium  { font-size: 45px; line-height: 52px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .display-small   { font-size: 36px; line-height: 44px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
   .headline-large  { font-size: 32px; line-height: 40px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
   .headline-medium { font-size: 28px; line-height: 36px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
   .headline-small  { font-size: 24px; line-height: 32px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .title-large  { font-size: 22px; line-height: 28px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .title-medium { font-size: 16px; line-height: 24px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
-  .title-small  { font-size: 14px; line-height: 20px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
-  .body-large  { font-size: 16px; line-height: 24px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .body-medium { font-size: 14px; line-height: 20px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .body-small  { font-size: 12px; line-height: 16px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
-  .label-large  { font-size: 14px; line-height: 20px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
-  .label-medium { font-size: 12px; line-height: 16px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
-  .label-small  { font-size: 11px; line-height: 16px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .title-large     { font-size: 22px; line-height: 28px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .title-medium    { font-size: 16px; line-height: 24px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .title-small     { font-size: 14px; line-height: 20px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .body-large      { font-size: 16px; line-height: 24px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .body-medium     { font-size: 14px; line-height: 20px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .body-small      { font-size: 12px; line-height: 16px; font-weight: 400; font-family: "Nunito Sans", sans-serif; }
+  .label-large     { font-size: 14px; line-height: 20px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .label-medium    { font-size: 12px; line-height: 16px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
+  .label-small     { font-size: 11px; line-height: 16px; font-weight: 500; font-family: "Nunito Sans", sans-serif; }
 }
