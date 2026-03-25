@@ -1,9 +1,10 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { HomePage } from "@/components/pages/HomePage";
+import Page from "@/app/(public)/page";
 import themeReducer from "@/store/slices/themeSlice";
 
+// ─── Router mock ────────────────────────────────────────────────────────────
 const mockPush = jest.fn();
 
 jest.mock("next/navigation", () => ({
@@ -11,83 +12,143 @@ jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
 }));
 
-jest.mock("next-themes", () => ({
-  useTheme: () => ({
-    theme: "light",
-    resolvedTheme: "light",
-    setTheme: jest.fn(),
-  }),
+// ─── Component mocks ────────────────────────────────────────────────────────
+/**
+ * Mock <HomeTemplate /> so this suite focuses only on the Page (HOC) layer,
+ * not on template internals.
+ */
+jest.mock("@/components/templates", () => ({
+  HomeTemplate: () => <div data-testid="home-template">HomeTemplate</div>,
 }));
 
-jest.mock("react", () => {
-  const real = jest.requireActual("react");
-  return {
-    ...real,
-    useEffect: (fn: () => void) => fn(),
-    useState: (init: unknown) => {
-      if (init === false) return [true, jest.fn()];
-      return real.useState(init);
-    },
-  };
-});
+/**
+ * Mock <Menu /> so we can:
+ *  1. Assert which tabs were forwarded.
+ *  2. Trigger onTabChange without needing real UI interaction.
+ */
+jest.mock("@/components/molecules", () => ({
+  Menu: ({
+    tabs,
+    onTabChange,
+  }: {
+    tabs: { href: string; label: string }[];
+    onTabChange: (href: string) => void;
+  }) => (
+    <nav data-testid="menu">
+      {tabs.map((tab) => (
+        <button key={tab.href} data-testid={`tab-${tab.label.toLowerCase()}`} onClick={() => onTabChange(tab.href)}>
+          {tab.label}
+        </button>
+      ))}
+    </nav>
+  ),
+}));
 
-function renderWithStore(ui: React.ReactElement) {
-  const store = configureStore({ reducer: { theme: themeReducer } });
+// ─── Helper ─────────────────────────────────────────────────────────────────
+function renderWithStore(
+  ui: React.ReactElement,
+  preloadedState?: { theme: { mode: "light" | "dark" } }
+) {
+  const store = configureStore({
+    reducer: { theme: themeReducer },
+    ...(preloadedState ? { preloadedState } : {}),
+  });
   return render(<Provider store={store}>{ui}</Provider>);
 }
 
-describe("HomePage (Page HOC)", () => {
+// ─── Suite ──────────────────────────────────────────────────────────────────
+describe("Page (HOC layer)", () => {
   beforeEach(() => mockPush.mockClear());
 
+  // ── Smoke ─────────────────────────────────────────────────────────────────
   it("renders without crashing", () => {
-    renderWithStore(<HomePage />);
-    expect(screen.getByRole("main")).toBeInTheDocument();
+    renderWithStore(<Page />);
+    // The root element should be present (the wrapping div is the only top-level element)
+    expect(screen.getByTestId("home-template")).toBeInTheDocument();
   });
 
-  it("renders the hero heading", () => {
-    renderWithStore(<HomePage />);
-    expect(
-      screen.getByRole("heading", { name: /build something remarkable/i })
-    ).toBeInTheDocument();
+  // ── HomeTemplate ──────────────────────────────────────────────────────────
+  it("renders <HomeTemplate />", () => {
+    renderWithStore(<Page />);
+    expect(screen.getByTestId("home-template")).toBeInTheDocument();
   });
 
-  it("renders the brand in the navbar", () => {
-    renderWithStore(<HomePage />);
-    expect(screen.getByText("My App")).toBeInTheDocument();
+  // ── Menu ──────────────────────────────────────────────────────────────────
+  it("renders <Menu /> inside the page", () => {
+    renderWithStore(<Page />);
+    expect(screen.getByTestId("menu")).toBeInTheDocument();
   });
 
-  it("navigates to /about when primary CTA is clicked", () => {
-    renderWithStore(<HomePage />);
-    fireEvent.click(screen.getByRole("button", { name: /get started/i }));
-    expect(mockPush).toHaveBeenCalledWith("/about");
+  it("passes all three NAV_ITEMS to <Menu />", () => {
+    renderWithStore(<Page />);
+    expect(screen.getByTestId("tab-rotation")).toBeInTheDocument();
+    expect(screen.getByTestId("tab-wave")).toBeInTheDocument();
+    expect(screen.getByTestId("tab-calculator")).toBeInTheDocument();
   });
 
-  it("navigates to /contact when secondary CTA is clicked", () => {
-    renderWithStore(<HomePage />);
-    fireEvent.click(screen.getByRole("button", { name: /learn more/i }));
-    expect(mockPush).toHaveBeenCalledWith("/contact");
+  it("displays correct labels for each nav item", () => {
+    renderWithStore(<Page />);
+    expect(screen.getByText("Rotation")).toBeInTheDocument();
+    expect(screen.getByText("Wave")).toBeInTheDocument();
+    expect(screen.getByText("Calculator")).toBeInTheDocument();
   });
 
-  it("renders all nav links (desktop + mobile, menu open via mock)", () => {
-    renderWithStore(<HomePage />);
-    // Each link appears in both desktop nav and mobile drawer
-    expect(screen.getAllByRole("link", { name: "Home" })).toHaveLength(2);
-    expect(screen.getAllByRole("link", { name: "About" })).toHaveLength(2);
-    expect(screen.getAllByRole("link", { name: "Contact" })).toHaveLength(2);
+  // ── Navigation (handleMenuClick) ──────────────────────────────────────────
+  it("navigates to /setor-rotation when Rotation tab is clicked", () => {
+    renderWithStore(<Page />);
+    fireEvent.click(screen.getByTestId("tab-rotation"));
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith("/setor-rotation");
   });
 
-  it("renders with a dark theme store state without crashing", () => {
-    const store = configureStore({
-      reducer: { theme: themeReducer },
-      preloadedState: { theme: { mode: "dark" as const } },
-    });
-    render(
-      <Provider store={store}>
-        <HomePage />
-      </Provider>
-    );
-    expect(
-      screen.getByRole("heading", { name: /build something remarkable/i })
-    ).toBeInTheDocument();
+  it("navigates to /wave-count when Wave tab is clicked", () => {
+    renderWithStore(<Page />);
+    fireEvent.click(screen.getByTestId("tab-wave"));
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith("/wave-count");
+  });
+
+  it("navigates to /calculator when Calculator tab is clicked", () => {
+    renderWithStore(<Page />);
+    fireEvent.click(screen.getByTestId("tab-calculator"));
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith("/calculator");
+  });
+
+  it("calls router.push exactly once per tab click", () => {
+    renderWithStore(<Page />);
+    fireEvent.click(screen.getByTestId("tab-rotation"));
+    fireEvent.click(screen.getByTestId("tab-wave"));
+    expect(mockPush).toHaveBeenCalledTimes(2);
+  });
+
+  // ── Redux / theme ─────────────────────────────────────────────────────────
+  it("renders correctly with light theme store state", () => {
+    renderWithStore(<Page />, { theme: { mode: "light" } });
+    expect(screen.getByTestId("home-template")).toBeInTheDocument();
+  });
+
+  it("renders correctly with dark theme store state", () => {
+    renderWithStore(<Page />, { theme: { mode: "dark" } });
+    expect(screen.getByTestId("home-template")).toBeInTheDocument();
+  });
+
+  // ── Layout / CSS classes ──────────────────────────────────────────────────
+  it("applies expected Tailwind layout classes to the root container", () => {
+    const { container } = renderWithStore(<Page />);
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveClass("flex");
+    expect(root).toHaveClass("flex-col");
+    expect(root).toHaveClass("w-full");
+    expect(root).toHaveClass("min-h-screen");
+    expect(root).toHaveClass("bg-surface");
+  });
+
+  it("renders Menu inside a right-aligned wrapper", () => {
+    const { container } = renderWithStore(<Page />);
+    // The menu wrapper is the first child of the root container
+    const menuWrapper = container.querySelector(".flex.justify-end");
+    expect(menuWrapper).toBeInTheDocument();
+    expect(menuWrapper).toContainElement(screen.getByTestId("menu"));
   });
 });
