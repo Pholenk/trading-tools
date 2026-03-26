@@ -15,13 +15,13 @@ describe("BreadcrumbItem", () => {
   it("applies inactive colour class when not active", () => {
     render(<BreadcrumbItem label="Home" />);
     const wrapper = screen.getByText("Home").closest("span");
-    expect(wrapper).toHaveClass("text-surface-variant-foreground");
+    expect(wrapper).toHaveClass("text-on-surface-variant");
   });
 
   it("applies active colour class when active", () => {
     render(<BreadcrumbItem label="Home" active />);
     const wrapper = screen.getByText("Home").closest("span");
-    expect(wrapper).toHaveClass("text-surface-foreground");
+    expect(wrapper).toHaveClass("text-on-surface");
   });
 
   it("renders as a plain span when no onClick is provided", () => {

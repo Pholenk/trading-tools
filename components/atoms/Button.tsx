@@ -4,24 +4,24 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm",
+          "bg-primary text-on-primary hover:bg-primary/90 shadow-sm",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-sm",
+          "bg-secondary text-on-secondary hover:bg-secondary/90 shadow-sm",
         outlined:
           "border border-outline bg-transparent text-primary hover:bg-primary/10",
         ghost:
           "bg-transparent text-primary hover:bg-primary/10",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm",
+          "bg-error text-on-error hover:bg-error/90 shadow-sm",
         tonal:
           "bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80",
         tertiary:
-          "bg-tertiary-container text-tertiary-container-foreground hover:bg-tertiary-container/90",
+          "bg-tertiary-container text-on-tertiary-container hover:bg-tertiary-container/90",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
@@ -29,7 +29,7 @@ const buttonVariants = cva(
         sm: "h-8 px-4 text-xs",
         lg: "h-12 px-8",
         icon: "h-10 w-10",
-        "icon-lg": "h-12 w-12 p-[10px] rounded-[20px]",
+        "icon-lg": "h-12 w-12 p-3 rounded-[20px]",
       },
     },
     defaultVariants: {

@@ -31,7 +31,7 @@ const RenderMenuItem = (props: {
 
   return realTabs.map((tab) => {
     return tab.label === 'button' ? (
-      <ButtonIcon key='theme-switcher' className='rounded-full' />
+      <ButtonIcon key='theme-switcher' className='rounded-full mx-2' />
     ) : (
       <MenuItem
         key={tab.label}
@@ -83,7 +83,7 @@ export function Menu({ tabs, defaultActive, activeTab, onTabChange, className }:
       aria-label='Menu'
       className={cn(
         'inline-flex flex-row items-center justify-start',
-        'pl-2 py-0 gap-2',
+        'px-2 gap-2',
         className,
       )}
     >

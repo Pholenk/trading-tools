@@ -30,8 +30,8 @@ export interface InputTextProps
  *  - corner radius: 28    → rounded-[28px]
  *  - background: {theme}/surface-container-high → bg-surface-container-high
  *  - placeholder: body/large
- *  - placeholder color: {theme}/on-surface-variant → placeholder:text-surface-variant-foreground
- *  - text color: {theme}/on-surface               → text-surface-foreground
+ *  - placeholder color: {theme}/on-surface-variant → placeholder:text-on-surface-variant
+ *  - text color: {theme}/on-surface               → text-on-surface
  *  - icon: Search (lucide-react)
  *  - icon w: 48, icon h: 48
  */
@@ -67,8 +67,8 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
             // Typography
             "body-large",
             // Colours
-            "text-surface-foreground",
-            "placeholder:text-surface-variant-foreground",
+            "text-on-surface",
+            "placeholder:text-on-surface-variant",
             className
           )}
           {...props}
@@ -78,7 +78,7 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
         <Icon
           icon={SearchIcon}
           size={48}
-          className="shrink-0 text-surface-foreground"
+          className="shrink-0 text-on-surface"
           aria-hidden="true"
         />
       </div>
