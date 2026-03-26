@@ -26,8 +26,8 @@ export interface BreadcrumbItemProps {
  *  - justify content: flex-start
  *  - icon w: 24, icon h: 24, icon color: same as label
  *  - typography: title/small
- *  - color (inactive): {theme}/on-surface-variant → text-surface-variant-foreground
- *  - color (active):   {theme}/on-surface          → text-surface-foreground
+ *  - color (inactive): {theme}/on-surface-variant → text-on-surface-variant
+ *  - color (active):   {theme}/on-surface          → text-on-surface
  */
 export function BreadcrumbItem({
   label,
@@ -36,8 +36,8 @@ export function BreadcrumbItem({
   className,
 }: BreadcrumbItemProps) {
   const colorClass = active
-    ? "text-surface-foreground"
-    : "text-surface-variant-foreground";
+    ? "text-on-surface"
+    : "text-on-surface-variant";
 
   const inner = (
     <span

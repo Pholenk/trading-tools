@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { PageHeader } from "@/components/organisms/PageHeader";
+import { PageHeader } from "@/components/organisms";
 
 // Mock next-themes for ButtonIcon inside Menu
 const mockSetTheme = jest.fn();
@@ -38,7 +38,9 @@ describe("PageHeader", () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
-  it("renders the search input", () => {
+  // ── showSearch=true (default) ──────────────────────────────────────────────
+
+  it("renders the search input by default", () => {
     render(<PageHeader tabs={TABS} />);
     expect(screen.getByRole("textbox")).toBeInTheDocument();
   });
@@ -50,14 +52,7 @@ describe("PageHeader", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders all menu tabs", () => {
-    render(<PageHeader tabs={TABS} />);
-    expect(screen.getByRole("tab", { name: "Rotation" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "Wave" })).toBeInTheDocument();
-    expect(screen.getByRole("tab", { name: "Calculator" })).toBeInTheDocument();
-  });
-
-  it("renders the Divider (hr) at the bottom", () => {
+  it("renders the Divider (hr) at the bottom by default", () => {
     const { container } = render(<PageHeader tabs={TABS} />);
     expect(container.querySelector("hr")).toBeInTheDocument();
   });
@@ -75,12 +70,48 @@ describe("PageHeader", () => {
     expect(last?.tagName.toLowerCase()).toBe("hr");
   });
 
+  // ── showSearch=false ───────────────────────────────────────────────────────
+
+  it("does not render the search input when showSearch=false", () => {
+    render(<PageHeader tabs={TABS} showSearch={false} />);
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+  });
+
+  it("does not render the Divider when showSearch=false", () => {
+    const { container } = render(<PageHeader tabs={TABS} showSearch={false} />);
+    expect(container.querySelector("hr")).not.toBeInTheDocument();
+  });
+
+  it("still renders Menu tabs when showSearch=false", () => {
+    render(<PageHeader tabs={TABS} showSearch={false} />);
+    expect(screen.getByRole("tab", { name: "Rotation" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Wave" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Calculator" })).toBeInTheDocument();
+  });
+
+  it("applies justify-end to the row when showSearch=false", () => {
+    const { container } = render(<PageHeader tabs={TABS} showSearch={false} />);
+    const row = container.firstElementChild?.firstElementChild;
+    expect(row).toHaveClass("justify-end");
+  });
+
+  // ── Menu always rendered ────────────────────────────────────────────────────
+
+  it("renders all menu tabs", () => {
+    render(<PageHeader tabs={TABS} />);
+    expect(screen.getByRole("tab", { name: "Rotation" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Wave" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "Calculator" })).toBeInTheDocument();
+  });
+
   it("renders the ButtonIcon by default", () => {
     render(<PageHeader tabs={TABS} />);
     expect(
       screen.getByRole("button", { name: /switch to dark theme/i })
     ).toBeInTheDocument();
   });
+
+  // ── Interaction ─────────────────────────────────────────────────────────────
 
   it("calls onSearchChange when typing in the input", () => {
     const handleSearch = jest.fn();
@@ -120,6 +151,8 @@ describe("PageHeader", () => {
       screen.getByRole("tab", { name: "Wave" })
     ).toHaveAttribute("aria-selected", "true");
   });
+
+  // ── Layout ─────────────────────────────────────────────────────────────────
 
   it("applies w-full to the root element", () => {
     const { container } = render(<PageHeader tabs={TABS} />);

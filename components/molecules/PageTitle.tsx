@@ -25,8 +25,8 @@ export interface PageTitleProps {
  *  - padding horizontal: 20 → px-5
  *  - gap: 16               → gap-4
  *  - typography: headline/large
- *  - text color: {theme}/on-surface     → text-surface-foreground
- *  - divider color: {theme}/on-surface-variant → bg-surface-variant-foreground
+ *  - text color: {theme}/on-surface     → text-on-surface
+ *  - divider color: {theme}/on-surface-variant → bg-on-surface-variant
  */
 export function PageTitle({ title, className }: PageTitleProps) {
   return (
@@ -40,12 +40,12 @@ export function PageTitle({ title, className }: PageTitleProps) {
       <Typography
         variant="headline-large"
         as="h1"
-        className="text-surface-foreground"
+        className="text-on-surface"
       >
         {title}
       </Typography>
 
-      <Divider className="bg-surface-variant-foreground" />
+      <Divider className="bg-on-surface-variant" />
     </div>
   );
 }
