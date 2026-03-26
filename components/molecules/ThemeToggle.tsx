@@ -50,8 +50,8 @@ export function ThemeToggle({
               className={cn(
                 "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 label-medium transition-colors",
                 isActive
-                  ? "bg-secondary-container text-secondary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-surface-container-high"
+                  ? "bg-secondary-container text-on-secondary"
+                  : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high"
               )}
             >
               <IconComp size={14} aria-hidden="true" />

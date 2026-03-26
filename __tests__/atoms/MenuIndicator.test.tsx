@@ -14,7 +14,7 @@ describe("MenuIndicator", () => {
 
   it("applies active bg class when active=true", () => {
     const { container } = render(<MenuIndicator active />);
-    expect(container.firstChild).toHaveClass("bg-surface-foreground");
+    expect(container.firstChild).toHaveClass("bg-on-surface");
   });
 
   it("applies transparent bg class when inactive", () => {
@@ -29,7 +29,7 @@ describe("MenuIndicator", () => {
 
   it("applies fixed height and border-radius classes", () => {
     const { container } = render(<MenuIndicator />);
-    expect(container.firstChild).toHaveClass("h-[3px]", "rounded-[20px]", "w-full");
+    expect(container.firstChild).toHaveClass("h-1", "rounded-[20px]", "w-full");
   });
 
   it("merges custom className", () => {

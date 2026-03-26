@@ -1,24 +1,271 @@
-Save this as project context! This is for a frontend web project developed using NextJS. This website MUST be SEO-friendly and run smoothly on a GitHub page.
+You are helping me build a frontend web project. Save everything below as project context and follow it strictly for the entire session.
 
-Create project using NextJS. Develop every component using atomic design principles and ensure the components is reusable.
+---
 
-Use TypeScript.
-Use Redux for state management.
-Use ShadCN UI for styling.
-Use React Testing Library to create unit and integration test script.
-To make it easy to test, use "Template" from atomic design principles as UI page and "Page" from atomic design principles to connect the High Order Component with the template.
-So, all function or logic goes to "Page" and page UI goes to "Template".
+## PROJECT OVERVIEW
 
-The website will have 2 main display theme; light and dark. User will be able to change theme on the fly.
-Make sure every component and page can adapt this perfectly.
+A Next.js website that must be SEO-friendly and deployable to GitHub Pages.
 
-I'll give you instructions for creating some things later. If I ask you to create a component, just CREATE the component according to the instructions without creating a page.
-If I ask you to create a page and you find a component missing, let me know first, and I'll decide whether you should create that component and how it should be designed.
+---
 
-When I give screenshot of design, this is how to understand it:
-1. The design is only visible within the white background area; anything outside that area is annotated.
-2. The red arrows crossing the screen indicate instructions for an object.
-3. Instructions for an object will include component-level information, color conventions, style conventions, and/or margin/padding information for the designated object.
-4. Ensure the resulting display does not deviate from the given design.
+## TECH STACK
 
-I have attached files containing lists of color conventions as well as typographic conventions.
+- Framework: Next.js with TypeScript
+- Styling: Tailwind CSS + ShadCN UI primitives
+- State management: Redux Toolkit
+- Testing: React Testing Library (unit + integration tests)
+- Deployment: GitHub Pages via GitHub Actions
+
+---
+
+## ARCHITECTURE — ATOMIC DESIGN
+
+Components are organized into 4 levels:
+- **Atoms** — smallest building blocks (Button, Typography, Icon, Input, Badge, etc.)
+- **Molecules** — composed from atoms (MenuItem, Menu, ButtonIcon, Breadcrumb, InputText, etc.)
+- **Organisms** — complex sections (Navbar, Footer, PageHeader)
+- **Templates** — pure UI main content of page layouts, NO logic, NO Redux, NO routing
+
+To accomodate the best practice of NextJS routing, place files in app folder under the designated folder.
+There will be several files under the route grouping folder such as;
+- **Page** — HOC layer, ALL logic lives here (Redux hooks, useRouter, event handlers, etc.), the file name should follow the uri
+- **Layout** — layout of entire web page that will be rendered
+
+**Rule:** If you're writing useState, useEffect, useRouter, or useAppSelector — you're in a Page. If you're writing JSX — you're in a Template.
+
+To make testing easy:
+- "Template" from atomic design = UI Main content
+- "Page" from atomic design = connects HOC with the template
+
+---
+
+## FILE DELIVERY RULES
+
+- After creating any file, always show it using present_files
+- No tar file updates — the outputs folder is the live project directory
+
+---
+
+## COMPONENT CREATION RULES
+
+- If I ask you to **create a component** → CREATE only that component, no pages
+- If I ask you to **create a page** → flag any missing components first, wait for my decision before proceeding
+- Always use existing atoms when building molecules. Never duplicate logic that already exists in an atom.
+- Always update barrel exports (index.ts) when adding new components
+
+---
+
+## TESTING RULES
+
+- Every component must have a corresponding test file
+- Unit tests for atoms, integration tests for molecules/organisms/templates/pages
+- Test files mirror the component folder structure under __tests__/
+- Always run: npx tsc --noEmit && npm test -- --no-coverage after creating/modifying files
+
+---
+
+## DESIGN SCREENSHOT CONVENTIONS
+
+When I give a screenshot of a design:
+1. The design is only visible within the white background area; anything outside is annotated
+2. Red arrows crossing the screen indicate instructions for an object
+3. Instructions include: component level, color conventions, style conventions, margin/padding
+4. The resulting display must not deviate from the given design
+
+---
+
+## COLOR CONVENTION
+
+**Active source:** material-theme.json (seed: #549FD1)
+
+### Light theme token → hex value
+- --primary: #006492
+- --on-primary: #FFFFFF
+- --primary-container: #549FD1
+- --on-primary-container: #00344E
+- --secondary: #005C75
+- --on-secondary: #FFFFFF
+- --secondary-container: #2B758F
+- --on-secondary-container: #DDF3FF
+- --tertiary: #3F586B
+- --on-tertiary: #FFFFFF
+- --tertiary-container: #577084
+- --on-tertiary-container: #E5F2FF
+- --error: #9C3C3E
+- --on-error: #FFFFFF
+- --error-container: #BB5455
+- --on-error-container: #FFFBFF
+- --background: #F7F9FE
+- --on-background: #181C1F
+- --surface: #F7F9FE
+- --on-surface: #181C1F
+- --surface-variant: #DCE3EC
+- --on-surface-variant: #40484F
+- --outline: #707880
+- --outline-variant: #C0C7D0
+- --shadow: #000000
+- --scrim: #000000
+- --inverse-surface: #2D3134
+- --inverse-on-surface: #EFF1F5
+- --inverse-primary: #8BCEFF
+- --surface-dim: #D8DADE
+- --surface-bright: #F7F9FE
+- --surface-container-lowest: #FFFFFF
+- --surface-container-low: #F2F4F8
+- --surface-container: #ECEEF2
+- --surface-container-high: #E6E8EC
+- --surface-container-highest: #E0E2E7
+
+### Dark theme token → hex value
+- --primary: #8BCEFF
+- --on-primary: #00344E
+- --primary-container: #549FD1
+- --on-primary-container: #00344E
+- --secondary: #8CD0ED
+- --on-secondary: #003545
+- --secondary-container: #2B758F
+- --on-secondary-container: #DDF3FF
+- --tertiary: #B0CAE0
+- --on-tertiary: #193345
+- --tertiary-container: #577084
+- --on-tertiary-container: #E5F2FF
+- --error: #FFB3B1
+- --on-error: #611017
+- --error-container: #DF6F6F
+- --on-error-container: #420007
+- --background: #101417
+- --on-background: #E0E2E7
+- --surface: #101417
+- --on-surface: #E0E2E7
+- --surface-variant: #40484F
+- --on-surface-variant: #C0C7D0
+- --outline: #8A929A
+- --outline-variant: #40484F
+- --shadow: #000000
+- --scrim: #000000
+- --inverse-surface: #E0E2E7
+- --inverse-on-surface: #2D3134
+- --inverse-primary: #006492
+- --surface-dim: #101417
+- --surface-bright: #363A3D
+- --surface-container-lowest: #0B0F12
+- --surface-container-low: #181C1F
+- --surface-container: #1D2023
+- --surface-container-high: #272A2E
+- --surface-container-highest: #323539
+
+### Tailwind class naming convention
+Colors are registered via @theme inline in globals.css. The utility class name matches the token name exactly:
+- --primary → bg-primary / text-primary
+- --on-primary → bg-on-primary / text-on-primary
+- --surface-container-high → bg-surface-container-high
+- --on-surface → text-on-surface
+- --on-surface-variant → text-on-surface-variant
+- --on-tertiary-container → text-on-tertiary-container
+- etc.
+
+**Never use HSL. Always use hex values directly from the theme JSON.**
+**Never use ShadCN-style aliases like text-foreground, text-muted-foreground, text-primary-foreground — always use the Material You on-* token names.**
+
+---
+
+## TYPOGRAPHY CONVENTION
+
+**Font family:** Nunito Sans (loaded from Google Fonts)
+
+| Class | Size | Weight | Line Height |
+|---|---|---|---|
+| .display-large | 57px | 400 | 64px |
+| .display-medium | 45px | 400 | 52px |
+| .display-small | 36px | 400 | 44px |
+| .headline-large | 32px | 400 | 40px |
+| .headline-medium | 28px | 400 | 36px |
+| .headline-small | 24px | 400 | 32px |
+| .title-large | 22px | 400 | 28px |
+| .title-medium | 16px | 500 | 24px |
+| .title-small | 14px | 500 | 20px |
+| .body-large | 16px | 400 | 24px |
+| .body-medium | 14px | 400 | 20px |
+| .body-small | 12px | 400 | 16px |
+| .label-large | 14px | 500 | 20px |
+| .label-medium | 12px | 500 | 16px |
+| .label-small | 11px | 500 | 16px |
+
+Use via the Typography atom: <Typography variant="headline-large" />
+
+---
+
+## TAILWIND SETUP
+
+- Version: Tailwind v4
+- In v4, colors MUST be declared via @theme inline in globals.css — tailwind.config.ts does NOT generate utility classes for colors
+- darkMode: ["class", "[data-theme='dark']"] as const in tailwind.config.ts
+- Dark mode is handled by next-themes via the "class" strategy
+
+---
+
+## TEMPLATE DEFAULT LAYOUT
+
+Unless a design explicitly overrides these, every Template uses:
+- width: w-full (design frame: 1440px)
+- min-height: min-h-screen (design frame: 1024px)
+- padding-top/bottom: py-12 (48px)
+- padding-left: pl-[72px] (72px)
+- padding-right: pr-[52px] (52px)
+- background: bg-surface
+- direction: flex-col
+
+---
+
+## EXISTING COMPONENTS
+
+### Atoms
+- Button — variants: default, secondary, outlined, ghost, destructive, tonal, tertiary; sizes: default, sm, lg, icon, icon-lg
+- Typography — variants: all 15 Material You scale values; textColor prop: default, primary, secondary, muted, error
+- Icon — wraps any LucideIcon
+- Input — base input with error state
+- Badge — variants: default, secondary, outline, error, tonal
+- MenuIndicator — 3px active underline bar for tabs
+- BreadcrumbItem — ChevronRight icon + label, active/inactive states
+- Divider — full-width h-[2px] horizontal rule, bg-outline-variant
+- ReduxProvider — wraps Redux store
+- ThemeProvider — syncs next-themes ↔ Redux
+
+### Molecules
+- ThemeToggle — icon and segmented variants
+- NavLink — active-state nav link with underline indicator
+- MenuItem — single tab item (MenuIndicator + label), role="tab"
+- Menu — horizontal tab bar: {loop of MenuItem} → {ButtonIcon}
+- ButtonIcon — theme toggle button composed of Button (variant="tertiary", size="icon-lg") + Icon (Sun/Moon)
+- Breadcrumb — ordered list of BreadcrumbItem atoms
+- InputText — Input atom (transparent) + Icon atom (Search, 48×48) inside bg-surface-container-high rounded-[28px] container
+- PageTitle — Typography (headline-large, on-surface) + Divider (bg-on-surface-variant), column centered, py-5 px-5 gap-4
+
+### Organisms
+- Navbar — sticky responsive navbar with mobile drawer
+- Footer — simple footer with brand + tagline
+- PageHeader — InputText (left, flex-1) + Menu (right) + Divider (bottom); w-full, h-hug
+
+### Templates
+- HomeTemplate — landing page: Menu (top-right) + Greeting Label (display-large × 2, max-w-[720px]) + InputText
+
+### Pages
+- HomePage — HOC wiring Redux → LandingTemplate
+
+---
+
+## REDUX STORE
+
+- themeSlice: { mode: "light" | "dark" | "system" }, actions: setTheme, toggleTheme
+- Typed hooks: useAppDispatch, useAppSelector
+
+---
+
+## GITHUB ACTIONS
+
+CI → Build → Deploy pipeline in .github/workflows/deploy.yml:
+1. Run all tests
+2. Build static export with NEXT_PUBLIC_REPO_NAME
+3. Deploy ./out to GitHub Pages
+
+Set NEXT_PUBLIC_REPO_NAME in .env.local to your GitHub repo name.

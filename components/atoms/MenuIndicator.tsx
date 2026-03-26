@@ -21,10 +21,10 @@ export interface MenuIndicatorProps {
 export function MenuIndicator({ active = false, className }: MenuIndicatorProps) {
   return (
     <span
-      aria-hidden="true"
+      aria-hidden={!active}
       className={cn(
-        "block w-full h-[3px] rounded-[20px] transition-colors duration-200",
-        active ? "bg-surface-foreground" : "bg-transparent",
+        "block w-full h-1 rounded-[20px] transition-colors duration-200",
+        active ? "bg-on-surface" : "bg-transparent",
         className
       )}
     />

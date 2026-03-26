@@ -67,13 +67,13 @@ describe("InputText", () => {
 
   it("applies text colour class to the input", () => {
     render(<InputText />);
-    expect(screen.getByRole("textbox")).toHaveClass("text-surface-foreground");
+    expect(screen.getByRole("textbox")).toHaveClass("text-on-surface");
   });
 
   it("applies placeholder colour class to the input", () => {
     render(<InputText />);
     expect(screen.getByRole("textbox")).toHaveClass(
-      "placeholder:text-surface-variant-foreground"
+      "placeholder:text-on-surface-variant"
     );
   });
 

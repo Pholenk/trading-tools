@@ -25,13 +25,13 @@ describe("MenuItem", () => {
   it("applies active text colour class when active", () => {
     render(<MenuItem label="Rotation" active />);
     const label = screen.getByText("Rotation");
-    expect(label).toHaveClass("text-surface-foreground");
+    expect(label).toHaveClass("text-on-surface");
   });
 
   it("applies inactive text colour class when not active", () => {
     render(<MenuItem label="Wave" />);
     const label = screen.getByText("Wave");
-    expect(label).toHaveClass("text-surface-variant-foreground");
+    expect(label).toHaveClass("text-on-surface-variant");
   });
 
   it("calls onClick with the label when clicked", () => {
@@ -47,8 +47,8 @@ describe("MenuItem", () => {
   });
 
   it("renders a MenuIndicator inside", () => {
-    const { container } = render(<MenuItem label="Rotation" active />);
-    // The indicator span is aria-hidden
+    const { container } = render(<MenuItem label="Rotation" />);
+    // Inactive indicator carries aria-hidden="true"
     expect(container.querySelector('[aria-hidden="true"]')).toBeInTheDocument();
   });
 
@@ -59,6 +59,6 @@ describe("MenuItem", () => {
 
   it("applies min-width and height classes", () => {
     render(<MenuItem label="Rotation" />);
-    expect(screen.getByRole("tab")).toHaveClass("min-w-[100px]", "h-[48px]");
+    expect(screen.getByRole("tab")).toHaveClass("min-w-18", "h-12");
   });
 });

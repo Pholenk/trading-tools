@@ -61,7 +61,7 @@ export function HomeTemplate({
   className,
 }: HomeTemplateProps) {
   return (
-    <main className={cn('flex flex-col flex-1', 'justify-center items-center', className)}>
+    <div className={cn('flex flex-col flex-1', 'justify-center items-center', className)}>
       {/* Greeting Label */}
       <div
         className={cn(
@@ -92,6 +92,6 @@ export function HomeTemplate({
           containerClassName='h-full w-full'
         />
       </div>
-    </main>
+    </div>
   )
 }

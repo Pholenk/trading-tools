@@ -21,7 +21,7 @@ describe("PageTitle", () => {
 
   it("applies on-surface colour class to the title", () => {
     render(<PageTitle title="Sector Rotation" />);
-    expect(screen.getByRole("heading")).toHaveClass("text-surface-foreground");
+    expect(screen.getByRole("heading")).toHaveClass("text-on-surface");
   });
 
   it("renders a Divider below the title", () => {
@@ -32,7 +32,7 @@ describe("PageTitle", () => {
   it("applies on-surface-variant colour class to the Divider", () => {
     const { container } = render(<PageTitle title="Sector Rotation" />);
     expect(container.querySelector("hr")).toHaveClass(
-      "bg-surface-variant-foreground"
+      "bg-on-surface-variant"
     );
   });
 

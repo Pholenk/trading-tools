@@ -32,8 +32,8 @@ export interface MenuItemProps {
  *  - align-items: center
  *
  * Label colours:
- *  - active:   {theme}/on-surface          → text-surface-foreground
- *  - inactive: {theme}/on-surface-variant  → text-surface-variant-foreground
+ *  - active:   {theme}/on-surface          → text-on-surface
+ *  - inactive: {theme}/on-surface-variant  → text-on-surface-variant
  */
 export function MenuItem({
   label,
@@ -50,8 +50,8 @@ export function MenuItem({
       className={cn(
         // Layout
         "flex flex-col items-center justify-end",
-        "min-w-[100px] h-[48px]",
-        "py-[14px] px-0.5 gap-1",
+        "min-w-18 h-12",
+        "px-0.5 gap-2",
         // Reset
         "bg-transparent border-none outline-none cursor-pointer",
         // Focus ring for accessibility
@@ -66,8 +66,8 @@ export function MenuItem({
         className={cn(
           "title-small select-none whitespace-nowrap transition-colors duration-200",
           active
-            ? "text-surface-foreground"
-            : "text-surface-variant-foreground"
+            ? "text-on-surface"
+            : "text-on-surface-variant"
         )}
       >
         {label}

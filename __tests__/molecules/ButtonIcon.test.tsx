@@ -74,10 +74,10 @@ describe("ButtonIcon", () => {
     expect(screen.getByRole("button")).toHaveClass("bg-tertiary-container");
   });
 
-  it("applies tertiary-container-foreground icon colour class", () => {
+  it("applies on-tertiary-container icon colour class", () => {
     render(<ButtonIcon />);
     expect(screen.getByRole("button")).toHaveClass(
-      "text-tertiary-container-foreground"
+      "text-on-tertiary-container"
     );
   });
 
