@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils'
 import { Breadcrumb, PageTitle } from '@/molecules'
 import { RotationGraph, type RRGDatum  } from '@/organisms'
-import { } from '@/organisms'
 
 export interface SectorRotationTemplateProps {
   className?: string
