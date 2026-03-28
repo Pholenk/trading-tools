@@ -78,12 +78,13 @@ export function RotationGraph({ data }: Props) {
     const collection: Record<RRGDatum['symbol'], string> = {}
 
     for (let x = 0; x < data.length; x++) {
-      const symbolColor = _generateRandomColor(Object.values(collection));
-      collection[data[x].symbol] = data[x].symbol.toLowerCase() === 'composite'
-        ? _getCssVar('--on-surface-variant')
-        : `#${symbolColor}`
+      const symbolColor = _generateRandomColor(Object.values(collection))
+      collection[data[x].symbol] =
+        data[x].symbol.toLowerCase() === 'composite'
+          ? _getCssVar('--on-surface-variant')
+          : `#${symbolColor}`
     }
-    
+
     return collection
   }, [data])
 
@@ -173,31 +174,38 @@ export function RotationGraph({ data }: Props) {
     // --- TRAILS ---
     usedData.forEach((d: RRGDatum) => {
       if (!d.trail || d.trail.length < 2) return
+      const graphColor = getSymbolColor(d)
 
       const line = d3
         .line<TrailPoint>()
         .x((p: TrailPoint) => x(p.rs))
         .y((p: TrailPoint) => y(p.rm))
-        .curve(d3.curveBasis)
+        .curve(d3.curveCatmullRom.alpha(1))
 
-      const trailCircle = svg
-        .selectAll<SVGCircleElement, RRGDatum>('circle')
-        .data(d.trail, () => '')
-      
+      // Include the head position as the final trail point so the path
+      // terminates exactly at the head circle with no gap.
+      const fullTrail: TrailPoint[] = [...d.trail, { rs: d.rs, rm: d.rm }]
+
+      const trailGroup = svg.append('g').attr('class', `trail-${d.symbol}`)
+
+      const trailCircle = trailGroup
+        .selectAll<SVGCircleElement, TrailPoint>('circle')
+        .data(fullTrail)
+
       trailCircle
         .enter()
         .append('circle')
         .attr('cx', (dt: TrailPoint) => x(dt.rs))
         .attr('cy', (dt: TrailPoint) => y(dt.rm))
         .attr('r', width < 400 ? 2 : 4)
-        .attr('fill', getSymbolColor(d))
-        .attr('stroke', '#111')
+        .attr('fill', graphColor)
+        .attr('stroke', graphColor)
 
-      svg
+      trailGroup
         .append('path')
-        .datum<TrailPoint[]>(d.trail)
+        .datum<TrailPoint[]>(fullTrail)
         .attr('fill', 'none')
-        .attr('stroke', getSymbolColor(d))
+        .attr('stroke', graphColor)
         .attr('stroke-width', 1.5)
         .attr('opacity', 0.7)
         .attr('d', line)
