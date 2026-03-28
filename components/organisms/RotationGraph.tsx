@@ -83,8 +83,6 @@ export function RotationGraph({ data }: Props) {
         ? _getCssVar('--on-surface-variant')
         : `#${symbolColor}`
     }
-
-    console.log(collection);
     
     return collection
   }, [data])
@@ -136,8 +134,8 @@ export function RotationGraph({ data }: Props) {
       .domain([minRM, maxRM])
       .range([height - margin, margin])
 
-    // --- COLOR ASSIGNMENT ---
-    const assignColor = (datum: RRGDatum) => {
+    // --- COLOR GENERATOR ---
+    const getSymbolColor = (datum: RRGDatum) => {
       const { symbol } = datum
       return colorCollection[symbol]
     }
@@ -182,20 +180,33 @@ export function RotationGraph({ data }: Props) {
         .y((p: TrailPoint) => y(p.rm))
         .curve(d3.curveBasis)
 
+      const trailCircle = svg
+        .selectAll<SVGCircleElement, RRGDatum>('circle')
+        .data(d.trail, () => '')
+      
+      trailCircle
+        .enter()
+        .append('circle')
+        .attr('cx', (dt: TrailPoint) => x(dt.rs))
+        .attr('cy', (dt: TrailPoint) => y(dt.rm))
+        .attr('r', width < 400 ? 2 : 4)
+        .attr('fill', getSymbolColor(d))
+        .attr('stroke', '#111')
+
       svg
         .append('path')
         .datum<TrailPoint[]>(d.trail)
         .attr('fill', 'none')
-        .attr('stroke', assignColor(d))
+        .attr('stroke', getSymbolColor(d))
         .attr('stroke-width', 1.5)
         .attr('opacity', 0.7)
         .attr('d', line)
     })
 
-    // --- POINTS ---
+    // --- HEAD ---
     const circles = svg
       .selectAll<SVGCircleElement, RRGDatum>('circle')
-      .data(usedData, (d: RRGDatum) => d.symbol)
+      .data(usedData, (d: RRGDatum) => d.symbol || '')
 
     circles
       .enter()
@@ -203,7 +214,7 @@ export function RotationGraph({ data }: Props) {
       .attr('cx', (d: RRGDatum) => x(d.rs))
       .attr('cy', (d: RRGDatum) => y(d.rm))
       .attr('r', width < 400 ? 4 : 6)
-      .attr('fill', assignColor)
+      .attr('fill', getSymbolColor)
       .attr('stroke', '#111')
 
     // --- LABELS ---

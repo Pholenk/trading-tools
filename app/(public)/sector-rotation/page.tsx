@@ -23,7 +23,7 @@ export default function Page() {
       const newGraphData = {
         symbol: marketKeys[x],
         ...marketValues[x],
-        trail: marketValues[x].trail.slice(0, 9)
+        trail: marketValues[x].trail.slice(0, 7)
       }
 
       result.push(newGraphData)
