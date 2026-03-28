@@ -76,7 +76,7 @@ describe("PublicLayout", () => {
   });
 
   it("passes showSearch=true to PageHeader on non-home routes", () => {
-    renderLayout("/setor-rotation");
+    renderLayout("/sector-rotation");
     expect(screen.getByTestId("page-header")).toHaveAttribute(
       "data-show-search",
       "true"
@@ -97,8 +97,8 @@ describe("PublicLayout", () => {
     expect(screen.getByTestId("active-tab").textContent).toBe("none");
   });
 
-  it("sets activeTab=Rotation when pathname is /setor-rotation", () => {
-    renderLayout("/setor-rotation");
+  it("sets activeTab=Rotation when pathname is /sector-rotation", () => {
+    renderLayout("/sector-rotation");
     expect(screen.getByTestId("active-tab").textContent).toBe("Rotation");
   });
 
@@ -112,8 +112,8 @@ describe("PublicLayout", () => {
     expect(screen.getByTestId("active-tab").textContent).toBe("Calculator");
   });
 
-  it("sets activeTab=Rotation on a nested path like /setor-rotation/detail", () => {
-    renderLayout("/setor-rotation/detail");
+  it("sets activeTab=Rotation on a nested path like /sector-rotation/detail", () => {
+    renderLayout("/sector-rotation/detail");
     expect(screen.getByTestId("active-tab").textContent).toBe("Rotation");
   });
 
@@ -121,7 +121,7 @@ describe("PublicLayout", () => {
   it("calls router.push with the correct href when a tab is clicked", () => {
     renderLayout("/");
     fireEvent.click(screen.getByTestId("tab-rotation"));
-    expect(mockPush).toHaveBeenCalledWith("/setor-rotation");
+    expect(mockPush).toHaveBeenCalledWith("/sector-rotation");
   });
 
   it("navigates to /wave-count when Wave tab is clicked", () => {
