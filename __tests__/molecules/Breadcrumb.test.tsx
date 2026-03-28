@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Breadcrumb } from "@/components/molecules/Breadcrumb";
+import { Breadcrumb } from "@/molecules";
 
 const ITEMS = [
   { label: "Home", onClick: jest.fn() },

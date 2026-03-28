@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MenuItem } from "@/components/molecules/MenuItem";
+import { MenuItem } from "@/molecules";
 
 describe("MenuItem", () => {
   it("renders the label text", () => {

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Typography } from "@/components/atoms/Typography";
+import { Typography } from "@/atoms";
 
 describe("Typography", () => {
   it("renders children", () => {

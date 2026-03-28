@@ -1,5 +1,5 @@
-import { Typography } from "@/components/atoms/Typography";
-import { Divider } from "@/components/atoms/Divider";
+import { Typography } from "@/atoms";
+import { Divider } from "@/atoms";
 import { cn } from "@/lib/utils";
 
 export interface PageTitleProps {
@@ -32,7 +32,7 @@ export function PageTitle({ title, className }: PageTitleProps) {
   return (
     <div
       className={cn(
-        "inline-flex flex-col items-center justify-center",
+        "inline-flex flex-col w-fit items-center justify-center",
         "py-5 px-5 gap-4",
         className
       )}

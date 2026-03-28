@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { Button } from "@/components/atoms/Button";
+import { Button } from "@/atoms";
 
 describe("Button", () => {
   it("renders children correctly", () => {

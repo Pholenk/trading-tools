@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
-import { ReduxProvider } from "@/components/atoms/ReduxProvider";
-import { ThemeProvider } from "@/components/atoms/ThemeProvider";
+import { ReduxProvider } from "@/atoms";
+import { ThemeProvider } from "@/atoms";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
