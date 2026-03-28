@@ -1,5 +1,5 @@
-import { Typography } from '@/components/atoms'
-import { InputText } from '@/components/molecules'
+import { Typography } from '@/atoms'
+import { InputText } from '@/molecules'
 import { cn } from '@/lib/utils'
 
 export interface HomeTemplateProps {

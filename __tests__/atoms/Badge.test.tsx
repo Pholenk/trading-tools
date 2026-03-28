@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Badge } from "@/components/atoms";
+import { Badge } from "@/atoms";
 
 describe("Badge", () => {
   it("renders children correctly", () => {

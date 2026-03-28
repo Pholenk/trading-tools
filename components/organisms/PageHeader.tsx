@@ -1,6 +1,6 @@
-import { Divider } from "@/components/atoms";
-import { InputText } from "@/components/molecules";
-import { Menu, type MenuTab } from "@/components/molecules";
+import { Divider } from "@/atoms";
+import { InputText } from "@/molecules";
+import { Menu, type MenuTab } from "@/molecules";
 import { cn } from "@/lib/utils";
 
 export interface PageHeaderProps {

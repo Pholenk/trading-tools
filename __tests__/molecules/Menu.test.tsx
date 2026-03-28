@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Menu } from "@/components/molecules";
+import { Menu } from "@/molecules";
 
 const mockSetTheme = jest.fn();
 jest.mock("next-themes", () => ({

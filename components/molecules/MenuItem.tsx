@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { MenuIndicator } from "@/components/atoms";
+import { MenuIndicator } from "@/atoms";
 
 export interface MenuItemProps {
   /** The visible tab label */

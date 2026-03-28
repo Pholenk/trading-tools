@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { PageHeader } from "@/components/organisms";
+import { PageHeader } from "@/organisms";
 
 // Mock next-themes for ButtonIcon inside Menu
 const mockSetTheme = jest.fn();

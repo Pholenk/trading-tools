@@ -1,5 +1,5 @@
-import { Typography } from "@/components/atoms";
-import { Divider } from "@/components/atoms";
+import { Typography } from "@/atoms";
+import { Divider } from "@/atoms";
 import { cn } from "@/lib/utils";
 
 export interface PageTitleProps {

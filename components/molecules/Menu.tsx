@@ -1,8 +1,8 @@
 'use client'
 
 import { cn } from '@/lib/utils'
-import { MenuItem } from '@/components/molecules'
-import { ButtonIcon } from '@/components/molecules'
+import { MenuItem } from '@/molecules'
+import { ButtonIcon } from '@/molecules'
 
 export interface MenuTab {
   /** Unique key and display label for this tab */

@@ -1,4 +1,4 @@
-import { SectorRotationTemplate } from "@/components/templates";
+import { SectorRotationTemplate } from "@/templates";
 import MarketData from "@/raw-data/rotation-graph/market.json";
 // import IDXBASICData from "@/raw-data/rotation-graph/sector-IDXBASIC.json"
 // import IDXCYCLICData from "@/raw-data/rotation-graph/sector-IDXCYCLIC.json"

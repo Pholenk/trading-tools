@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { Search, type LucideIcon } from "lucide-react";
-import { Input } from "@/components/atoms";
-import { Icon } from "@/components/atoms";
+import { Input } from "@/atoms";
+import { Icon } from "@/atoms";
 import { cn } from "@/lib/utils";
 
 export interface InputTextProps

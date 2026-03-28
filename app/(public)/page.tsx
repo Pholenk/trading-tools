@@ -1,4 +1,4 @@
-import { HomeTemplate } from '@/components/templates'
+import { HomeTemplate } from '@/templates'
 
 /**
  * HomePage — Page (HOC) layer.

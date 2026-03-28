@@ -5,7 +5,7 @@ import Page from "@/app/(public)/page";
  * Mock <HomeTemplate /> so this suite focuses on the Page layer only.
  * Template internals are covered by HomeTemplate.test.tsx.
  */
-jest.mock("@/components/templates", () => ({
+jest.mock("@/templates", () => ({
   HomeTemplate: ({ className }: { className?: string }) => (
     <div data-testid="home-template" className={className}>
       HomeTemplate

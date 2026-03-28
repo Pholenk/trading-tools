@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { MenuIndicator } from "@/components/atoms";
+import { MenuIndicator } from "@/atoms";
 
 describe("MenuIndicator", () => {
   it("renders without crashing", () => {

@@ -11,7 +11,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 // ─── PageHeader mock ─────────────────────────────────────────────────────────
-jest.mock("@/components/organisms", () => ({
+jest.mock("@/organisms", () => ({
   PageHeader: ({
     tabs,
     activeTab,

@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { Sun, Moon } from 'lucide-react'
-import { Button } from '@/components/atoms'
-import { Icon } from '@/components/atoms'
+import { Button } from '@/atoms'
+import { Icon } from '@/atoms'
 
 export interface ButtonIconProps {
   className?: string
