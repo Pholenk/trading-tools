@@ -3,7 +3,7 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Sun, Moon, Monitor } from "lucide-react";
-import { Button } from "@/components/atoms";
+import { Button } from "@/atoms";
 import { cn } from "@/lib/utils";
 
 export interface ThemeToggleProps {

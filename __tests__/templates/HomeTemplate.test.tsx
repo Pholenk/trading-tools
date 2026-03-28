@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { HomeTemplate } from "@/components/templates";
+import { HomeTemplate } from "@/templates";
 
 const mockSetTheme = jest.fn();
 jest.mock("next-themes", () => ({

@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { Divider } from "@/components/atoms/Divider";
+import { Divider } from "@/atoms";
 
 describe("Divider", () => {
   it("renders an hr element", () => {

@@ -15,7 +15,13 @@
     "incremental": true,
     "types": ["jest", "@testing-library/jest-dom"],
     "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./*"] }
+    "paths": {
+      "@/*": ["./*"],
+      "@/atoms": ["./components/atoms/index.ts"],
+      "@/molecules": ["./components/molecules/index.ts"],
+      "@/organisms": ["./components/organisms/index.ts"],
+      "@/templates": ["./components/templates/index.ts"],
+    }
   },
   "include": [
     "next-env.d.ts",

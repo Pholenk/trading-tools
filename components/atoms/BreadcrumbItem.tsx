@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
-import { Icon } from "@/components/atoms/Icon";
-import { Typography } from "@/components/atoms/Typography";
+import { Icon } from "@/atoms";
+import { Typography } from "@/atoms";
 import { cn } from "@/lib/utils";
 
 export interface BreadcrumbItemProps {
