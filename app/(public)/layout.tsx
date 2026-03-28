@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/organisms'
 import type { MenuTab } from '@/components/molecules'
 
 const NAV_ITEMS: MenuTab[] = [
-  { href: '/setor-rotation', label: 'Rotation' },
+  { href: '/sector-rotation', label: 'Rotation' },
   { href: '/wave-count', label: 'Wave' },
   { href: '/calculator', label: 'Calculator' },
 ]

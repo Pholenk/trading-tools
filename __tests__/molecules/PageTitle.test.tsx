@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { PageTitle } from "@/components/molecules/PageTitle";
+import { PageTitle } from "@/components/molecules";
 
 describe("PageTitle", () => {
   it("renders the title text", () => {

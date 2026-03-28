@@ -1,4 +1,4 @@
-import { BreadcrumbItem } from "@/components/atoms/BreadcrumbItem";
+import { BreadcrumbItem } from "@/components/atoms";
 import { cn } from "@/lib/utils";
 
 export interface BreadcrumbEntry {

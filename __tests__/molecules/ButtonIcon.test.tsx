@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { ButtonIcon } from "@/components/molecules/ButtonIcon";
+import { ButtonIcon } from "@/components/molecules";
 
 const mockSetTheme = jest.fn();
 let mockResolved = "light";

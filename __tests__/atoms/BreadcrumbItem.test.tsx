@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { BreadcrumbItem } from "@/components/atoms/BreadcrumbItem";
+import { BreadcrumbItem } from "@/components/atoms";
 
 describe("BreadcrumbItem", () => {
   it("renders the label text", () => {

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { InputText } from "@/components/molecules/InputText";
+import { InputText } from "@/components/molecules";
 
 describe("InputText", () => {
   it("renders an input element", () => {
