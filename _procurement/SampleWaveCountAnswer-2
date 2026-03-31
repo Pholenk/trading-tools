@@ -1,0 +1,31 @@
+**Your project to build a web app for automatic Elliott Wave detection using zigzag, Fibonacci, and TradingView's Lightweight Charts is viable.** It leverages established technical analysis techniques and tools that integrate well with Python and web deployment. Existing libraries and examples support the core components without major roadblocks. [github](https://github.com/alessioricco/ElliottWaves)
+
+## Pros and Cons
+
+| Aspect | Pros | Cons |
+|--------|------|------|
+| **Technical Feasibility** | Zigzag for swings and Fibonacci retracements/extensions are standard in Python TA libraries; Elliott Wave automation exists via specialized repos. [stackoverflow](https://stackoverflow.com/questions/62454181/zigzag-indicator-in-python) | Full Elliott Wave (5-3 patterns with rules) is subjective; automation may produce inconsistent or false positives on daily data. [wire.insiderfinance](https://wire.insiderfinance.io/unlock-the-markets-secret-language-how-code-decodes-elliott-waves-automatically-e7095845b60a?gi=5618d95bca87) |
+| **Visualization** | Lightweight Charts supports custom series like lines/markers for waves/Fib levels via JS API; Python wrappers (e.g., pytvchart, lightweight-charts-python) enable easy plotting. [github](https://github.com/tysonwu/dash-tradingview) | Requires JS frontend for interactivity; can't import TradingView's full custom Pine indicators directly. [tradingview](https://www.tradingview.com/charting-library-docs/latest/custom_studies/) |
+| **Deployment** | GitHub Actions handles Python processing/CI perfectly; host static JS charts or Python backends (Flask/Streamlit) cheaply. [realpython](https://realpython.com/github-actions-python/) | CSV processing for many stocks needs optimization; large datasets may slow daily runs. [ta-lib.github](https://ta-lib.github.io/ta-lib-python/) |
+
+## Recommended Libraries
+
+- **Zigzag/Swings**: Custom functions with scipy.signal.argrelextrema or implement peak/valley filtering (simple, no heavy deps). [stackoverflow](https://stackoverflow.com/questions/62454181/zigzag-indicator-in-python)
+- **Fibonacci**: Manual calculations on swing points (retracements: 23.6%, 38.2%, 61.8%; extensions: 127.2%, 161.8%) or ta-py/stock-indicators. [eodhd](https://eodhd.com/financial-academy/technical-analysis-examples/fibonacci-sequence-in-trading-with-python)
+- **Elliott Waves**: taew (PyPI) for labeling impulses/corrections with Fib validation; supplement with ElliottWaves or Elliott_System GitHub repos for pattern detection. [pypi](https://pypi.org/project/taew/)
+- **Core TA/Processing**: Pandas for OHLCV, TA-Lib for basics; run offline in GitHub Actions to precompute annotations as JSON/CSV. [ta-lib.github](https://ta-lib.github.io/ta-lib-python/)
+- **Viz/Frontend**: pytvchart or louisnw01/lightweight-charts-python to generate charts with candlesticks, zigzag lines, Fib lines, and wave labels. [github](https://github.com/filipemarques87/tradingview-chart-py)
+
+## Best Implementation Strategy
+
+Process CSV data in Python: Apply zigzag to find swings, compute Fib levels between points, then use taew-like rules to label potential waves (e.g., check Fib ratios for wave 2/4 retracements, wave 3/5 extensions). [elliottwave-forecast](https://elliottwave-forecast.com/elliottwave/importance-of-an-elliott-wave-zigzag-fibonacci-extension/)
+
+Output JSON with time/value points for candlesticks, zigzag lines, Fib horizontals, and markers/labels for waves.
+
+Serve via web: Backend (Flask/FastAPI) uploads CSVs, computes, sends JSON to JS frontend using Lightweight Charts API for custom series (LineSeries for zigzag/Fib, add labels). [tradingview](https://www.tradingview.com/charting-library-docs/latest/custom_studies/)
+
+GitHub Actions: YAML workflow for lint/test/process sample CSVs on push/PR; deploy to Vercel/Netlify for static host or Render for Python app. [realpython](https://realpython.com/github-actions-python/)
+
+## Additional Ideas
+
+Start with zigzag + Fib retracements/extensions only, adding Elliott labeling iteratively—avoids overcomplicating rules initially. Allow user-adjustable params (zigzag depth, Fib levels) via web form for interactivity. Cache processed data for stocks in Redis/DB to speed up repeats. For daily timeframe, validate on historical data first (backtest wave accuracy). We could explore Streamlit for quick prototyping before full web app. [tradingview](https://www.tradingview.com/script/IGrDHMhJ-ZigZag-Library-TradingFinder/)
