@@ -1,0 +1,342 @@
+Alright, let’s strip this down like a practitioner, not a textbook. What you’re trying to build is not “Elliott Wave theory,” it’s a **rule-based approximation of crowd behavior under uncertainty**. If you try to fully replicate discretionary Elliott labeling, your system will collapse under ambiguity.
+
+So the execution plan must be **structured, constrained, and probabilistic**.
+
+---
+
+# 1. First Principles (What Actually Matters)
+
+Elliott Wave in real markets is:
+
+* Trend + pullback structure
+* Governed loosely by **Fibonacci ratios**
+* Highly subjective unless you **reduce degrees of freedom**
+
+So your system needs 3 layers:
+
+### Layer A — Market Regime Detection
+
+### Layer B — Swing Point Extraction
+
+### Layer C — Fibonacci Validation (retracement + extension)
+
+Everything else is noise.
+
+---
+
+# 2. Regime Detection (Bullish vs Bearish)
+
+Before Fibonacci, you must define trend **mechanically**.
+
+Use something simple but robust:
+
+### Option 1 (Recommended)
+
+* 50-day MA vs 200-day MA
+* If 50 > 200 → Bull regime
+* If 50 < 200 → Bear regime
+
+### Option 2 (More Quant)
+
+* Use **log returns slope** over rolling window:
+
+  * Fit linear regression on log(price)
+  * Positive slope → bullish
+  * Negative → bearish
+
+👉 As a quant, I strongly recommend **log regression slope**. It aligns with how institutions think.
+
+---
+
+# 3. Swing Point Detection (CRITICAL)
+
+This is where most systems fail.
+
+You need to define:
+
+* Local highs (peaks)
+* Local lows (troughs)
+
+### Use a ZigZag Algorithm (must-have)
+
+Define threshold:
+
+* Example: 5% or ATR-based
+
+Rules:
+
+* Price must move at least X% to confirm reversal
+* This filters noise
+
+Output:
+
+```
+P0 → P1 → P2 → P3 → ...
+```
+
+These are your candidate wave points.
+
+---
+
+# 4. When to Use Fibonacci Retracement vs Extension
+
+This is where your confusion is—but it's actually simple:
+
+### 🔹 Fibonacci Retracement
+
+Used for:
+
+* Pullbacks (Wave 2, Wave 4)
+
+Formula:
+
+```
+From swing low → swing high (bull)
+From swing high → swing low (bear)
+```
+
+Typical levels:
+
+* 38.2%
+* 50%
+* 61.8%
+* 78.6%
+
+---
+
+### 🔹 Fibonacci Extension
+
+Used for:
+
+* Impulse targets (Wave 3, Wave 5)
+
+Formula:
+
+```
+Wave 1 length projected from Wave 2
+```
+
+Typical levels:
+
+* 1.618 (most important)
+* 2.618 (strong trends like BUMI)
+* 4.236 (parabolic)
+
+---
+
+# 5. Core Logic for Elliott Approximation
+
+Let’s define a bullish structure:
+
+### Step-by-step:
+
+#### 1. Identify Wave 1
+
+* First impulse from bottom (ZigZag low → high)
+
+#### 2. Identify Wave 2
+
+* Retracement of Wave 1
+* Must respect:
+
+  * Usually 38–78%
+  * NEVER exceed 100%
+
+#### 3. Identify Wave 3 (The Beast)
+
+* Extension of Wave 1 from Wave 2
+* Must be:
+
+  * > 1.0x Wave 1
+  * Typically ~1.618x or more
+
+👉 THIS is what you see in BUMI.
+
+---
+
+# 6. Handling Extreme Wave 3 (like BUMI)
+
+This is not a bug. This is **market reality**.
+
+Retail names + commodities + speculation → **nonlinear moves**
+
+### Programmatic Handling:
+
+Instead of fixed targets:
+
+Use range validation:
+
+```
+Wave3_length / Wave1_length:
+
+Valid if:
+> 1.0  (minimum)
+Typical:
+1.618 – 2.618
+Extreme:
+> 3.0 (flag as parabolic regime)
+```
+
+👉 Do NOT cap it. Just classify it.
+
+---
+
+# 7. Log Scale vs Linear (Your Confusion Solved)
+
+This is a **big one**, and most retail traders get this wrong.
+
+### Rule:
+
+Use **log scale when price moves are multiplicative**
+
+### Programmatic Rule:
+
+Switch to log IF:
+
+```
+(max_price / min_price) > 2.0 within the wave structure
+```
+
+OR more robust:
+
+```
+std(log returns) << std(price changes)
+```
+
+👉 In simple terms:
+
+* If price doubles/triples → use LOG
+* If price moves sideways → use LINEAR
+
+---
+
+# 8. Full Pipeline (Execution Plan)
+
+Here’s your system architecture:
+
+### Step 1 — Preprocess
+
+* Use adjusted close
+* Compute log(price)
+
+---
+
+### Step 2 — Detect Regime
+
+* Linear regression slope on log(price)
+
+---
+
+### Step 3 — Run ZigZag
+
+* Threshold: 5–10% (tune later)
+* Output swing points
+
+---
+
+### Step 4 — Label Candidate Waves
+
+For each sequence:
+
+```
+P0 → P1 → P2 → P3
+```
+
+Check:
+
+#### Wave 1:
+
+P0 → P1
+
+#### Wave 2:
+
+P1 → P2
+
+* retracement < 100%
+* ideal: 38–78%
+
+#### Wave 3:
+
+P2 → P3
+
+* extension > 1.0
+* classify strength
+
+---
+
+### Step 5 — Fibonacci Application
+
+For each valid structure:
+
+* Retracement:
+
+  ```
+  fib(P0 → P1)
+  check where P2 lands
+  ```
+
+* Extension:
+
+  ```
+  project from P2 using length(P1 - P0)
+  compare with P3
+  ```
+
+---
+
+### Step 6 — Confidence Scoring
+
+Instead of binary:
+
+Score:
+
+* Retracement accuracy
+* Extension alignment
+* Trend strength
+* Volume (if later added)
+
+---
+
+# 9. What You SHOULD NOT Do
+
+* ❌ Don’t try to label all 5 waves perfectly
+* ❌ Don’t hardcode exact Fibonacci hits
+* ❌ Don’t ignore regime
+* ❌ Don’t use raw highs/lows without filtering
+
+---
+
+# 10. Practical Advice (From Experience)
+
+What you're building is essentially:
+
+> A **pattern recognition engine under uncertainty**, not a deterministic indicator.
+
+Even hedge funds don’t “believe” Elliott Wave literally—they extract:
+
+* Trend persistence
+* Pullback depth
+* Momentum expansion
+
+---
+
+# 11. Final Insight (Important)
+
+If your system can reliably detect:
+
+* Strong Wave 3 expansions
+* Clean Wave 2 pullbacks
+
+You already have an edge.
+
+Wave 4 and 5?
+
+Nice to have. Not necessary for profitability.
+
+---
+
+If you want, next step I can help you:
+
+* Design **data structures & pseudocode**
+* Define **ZigZag implementation**
+* Or help you test this specifically on BUMI to validate your logic empirically
