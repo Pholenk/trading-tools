@@ -165,4 +165,50 @@ describe("PageHeader", () => {
     );
     expect(container.firstChild).toHaveClass("custom-header");
   });
+
+  // ── Search suggestions ────────────────────────────────────────────────────
+
+  it("does not render a listbox by default (no suggestions)", () => {
+    render(<PageHeader tabs={TABS} />);
+    expect(document.querySelector('[role="listbox"]')).not.toBeInTheDocument();
+  });
+
+  it("renders a listbox when suggestions are provided", () => {
+    render(<PageHeader tabs={TABS} suggestions={["BBCA", "BBRI"]} onSuggestionClick={jest.fn()} />);
+    expect(document.querySelector('[role="listbox"]')).toBeInTheDocument();
+  });
+
+  it("renders the correct suggestion items in the listbox", () => {
+    render(<PageHeader tabs={TABS} suggestions={["BBCA", "BBRI", "TLKM"]} onSuggestionClick={jest.fn()} />);
+    expect(screen.getByText("BBCA")).toBeInTheDocument();
+    expect(screen.getByText("BBRI")).toBeInTheDocument();
+    expect(screen.getByText("TLKM")).toBeInTheDocument();
+  });
+
+  it("calls onSuggestionClick when a suggestion is clicked", () => {
+    const handleSuggestion = jest.fn();
+    render(<PageHeader tabs={TABS} suggestions={["BBCA"]} onSuggestionClick={handleSuggestion} />);
+    fireEvent.mouseDown(screen.getByText("BBCA").closest("button")!);
+    expect(handleSuggestion).toHaveBeenCalledWith("BBCA");
+  });
+
+  it("does not render suggestion listbox when showSearch=false even if suggestions are provided", () => {
+    render(
+      <PageHeader
+        tabs={TABS}
+        showSearch={false}
+        suggestions={["BBCA", "BBRI"]}
+        onSuggestionClick={jest.fn()}
+      />
+    );
+    expect(document.querySelector('[role="listbox"]')).not.toBeInTheDocument();
+  });
+
+  it("input wrapper has position relative to anchor the suggestion list", () => {
+    const { container } = render(<PageHeader tabs={TABS} />);
+    // The wrapper div around InputText should be relative
+    const relativeWrapper = container.querySelector(".relative");
+    expect(relativeWrapper).toBeInTheDocument();
+  });
+
 });

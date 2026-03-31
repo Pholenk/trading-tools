@@ -15,3 +15,7 @@ export { Breadcrumb } from './Breadcrumb'
 export { InputText } from './InputText'
 
 export { PageTitle } from './PageTitle'
+
+export { SearchOption } from './SearchOption'
+
+export { SearchSuggestionList } from './SearchSuggestionList'

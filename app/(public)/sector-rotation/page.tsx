@@ -1,6 +1,6 @@
 import { SectorRotationTemplate } from '@/templates'
-import MarketData from '@/raw-data/rotation-graph/market.json'
-import { RRGDatum } from '@/components/organisms'
+import { MARKET_DATA } from '@/raw-data/rotation-graph/Market'
+import { type RRGDatum } from '@/organisms'
 // import IDXBASICData from "@/raw-data/rotation-graph/sector-IDXBASIC.json"
 // import IDXCYCLICData from "@/raw-data/rotation-graph/sector-IDXCYCLIC.json"
 // import IDXENERGYData from "@/raw-data/rotation-graph/sector-IDXENERGY.json"
@@ -14,51 +14,29 @@ import { RRGDatum } from '@/components/organisms'
 // import IDXTRANSData from "@/raw-data/rotation-graph/sector-IDXTRANS.json"
 // import StockData from "@/raw-data/rotation-graph/stock.json"
 
-type MarketDataKey = keyof typeof MarketData
+const INDICES_TO_SHOW = [
+  'COMPOSITE',
+  'IDXBASIC',
+  'IDXCYCLIC',
+  'IDXENERGY',
+  'IDXFINANCE',
+  'IDXHEALTH',
+  'IDXINDUST',
+  'IDXINFRA',
+  'IDXNONCYC',
+  'IDXPROPERT',
+  'IDXTECHNO',
+  'IDXTRANS',
+]
+
+function generateGraphData(): RRGDatum[] {
+  return INDICES_TO_SHOW.filter((key) => key in MARKET_DATA).map((key) => ({
+    symbol: key,
+    ...MARKET_DATA[key],
+    trail: MARKET_DATA[key]?.trail?.slice(0, 7),
+  }))
+}
 
 export default function Page() {
-  const indicesToShow: MarketDataKey[] = [
-    'COMPOSITE',
-    'IDXBASIC',
-    'IDXCYCLIC',
-    'IDXENERGY',
-    'IDXFINANCE',
-    'IDXHEALTH',
-    'IDXINDUST',
-    'IDXINFRA',
-    'IDXNONCYC',
-    'IDXPROPERT',
-    'IDXTECHNO',
-    'IDXTRANS',
-  ]
-
-  const _marketDataToShow = () => {
-    const dataToShow: Record<string, Omit<RRGDatum, 'symbol'>> = {}
-
-    for (let x = 0; x < indicesToShow.length; x++) {
-      dataToShow[indicesToShow[x]] = MarketData[indicesToShow[x]]
-    }
-
-    return dataToShow
-  }
-  const _generateGraphData = () => {
-    const market = _marketDataToShow()
-    const marketKeys = Object.keys(market)
-    const marketValues = Object.values(market)
-    const result = []
-
-    for (let x = 0; x < marketKeys.length; x++) {
-      const newGraphData = {
-        symbol: marketKeys[x],
-        ...marketValues[x],
-        trail: marketValues[x]?.trail?.slice(0, 7),
-      }
-
-      result.push(newGraphData)
-    }
-
-    return result
-  }
-
-  return <SectorRotationTemplate className='py-12 pl-18 pr-13' graph={_generateGraphData()} />
+  return <SectorRotationTemplate className='py-12 pl-18 pr-13' graph={generateGraphData()} />
 }

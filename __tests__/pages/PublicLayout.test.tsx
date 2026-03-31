@@ -17,11 +17,19 @@ jest.mock("@/organisms", () => ({
     activeTab,
     showSearch,
     onTabChange,
+    searchValue,
+    onSearchChange,
+    suggestions,
+    onSuggestionClick,
   }: {
     tabs: { href: string; label: string }[];
     activeTab?: string;
     showSearch?: boolean;
     onTabChange?: (href: string) => void;
+    searchValue?: string;
+    onSearchChange?: (value: string) => void;
+    suggestions?: string[];
+    onSuggestionClick?: (ticker: string) => void;
   }) => (
     <div data-testid="page-header" data-show-search={String(showSearch)}>
       <span data-testid="active-tab">{activeTab ?? "none"}</span>
@@ -34,9 +42,34 @@ jest.mock("@/organisms", () => ({
           {tab.label}
         </button>
       ))}
+      <input
+        data-testid="search-input"
+        value={searchValue ?? ""}
+        onChange={(e) => onSearchChange?.(e.target.value)}
+      />
+      {suggestions && suggestions.length > 0 && (
+        <ul data-testid="suggestions">
+          {suggestions.map((t) => (
+            <li key={t}>
+              <button data-testid={`suggestion-${t}`} onClick={() => onSuggestionClick?.(t)}>
+                {t}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   ),
 }));
+
+// ─── StockData mock ──────────────────────────────────────────────────────────
+jest.mock("@/raw-data/rotation-graph/stock.json", () => ({
+  BBCA: { rs: 100, rm: 100, trail: [] },
+  BBRI: { rs: 101, rm: 101, trail: [] },
+  BMRI: { rs: 99,  rm: 99,  trail: [] },
+  TLKM: { rs: 100, rm: 100, trail: [] },
+  ASII: { rs: 100, rm: 100, trail: [] },
+}), { virtual: true });
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function renderLayout(pathname = "/") {
@@ -155,5 +188,66 @@ describe("PublicLayout", () => {
     expect(screen.getByTestId("tab-rotation")).toBeInTheDocument();
     expect(screen.getByTestId("tab-wave")).toBeInTheDocument();
     expect(screen.getByTestId("tab-calculator")).toBeInTheDocument();
+  });
+
+  // ── Search state ──────────────────────────────────────────────────────────
+  it("passes searchValue to PageHeader", () => {
+    renderLayout("/sector-rotation");
+    const input = screen.getByTestId("search-input");
+    expect((input as HTMLInputElement).value).toBe("");
+  });
+
+  it("updates searchValue when onSearchChange fires", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "BB" } });
+    expect((screen.getByTestId("search-input") as HTMLInputElement).value).toBe("BB");
+  });
+
+  // ── Suggestions filtering ─────────────────────────────────────────────────
+  it("shows no suggestions when search is empty", () => {
+    renderLayout("/sector-rotation");
+    expect(screen.queryByTestId("suggestions")).not.toBeInTheDocument();
+  });
+
+  it("shows matching suggestions when user types", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "BB" } });
+    expect(screen.getByTestId("suggestions")).toBeInTheDocument();
+    expect(screen.getByTestId("suggestion-BBCA")).toBeInTheDocument();
+    expect(screen.getByTestId("suggestion-BBRI")).toBeInTheDocument();
+  });
+
+  it("hides suggestions when search is cleared back to empty", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "BB" } });
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "" } });
+    expect(screen.queryByTestId("suggestions")).not.toBeInTheDocument();
+  });
+
+  it("filtering is case-insensitive", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "bb" } });
+    expect(screen.getByTestId("suggestion-BBCA")).toBeInTheDocument();
+  });
+
+  it("shows no suggestions for a query that matches nothing", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "ZZZZ" } });
+    expect(screen.queryByTestId("suggestions")).not.toBeInTheDocument();
+  });
+
+  // ── Suggestion navigation ────────────────────────────────────────────────
+  it("navigates to /{ticker} when a suggestion is clicked", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "BB" } });
+    fireEvent.click(screen.getByTestId("suggestion-BBCA"));
+    expect(mockPush).toHaveBeenCalledWith("/BBCA");
+  });
+
+  it("clears searchValue after a suggestion is clicked", () => {
+    renderLayout("/sector-rotation");
+    fireEvent.change(screen.getByTestId("search-input"), { target: { value: "BB" } });
+    fireEvent.click(screen.getByTestId("suggestion-BBCA"));
+    expect((screen.getByTestId("search-input") as HTMLInputElement).value).toBe("");
   });
 });
